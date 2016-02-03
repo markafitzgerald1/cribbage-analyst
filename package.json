@@ -1,0 +1,28 @@
+{
+  "name": "cribbage-analyst",
+  "version": "0.1.0",
+  "description": "A cribbage discard and play analysis tool.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo No tests yet."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markafitzgerald1/cribbage-analyst.git"
+  },
+  "keywords": [
+    "cribbage",
+    "analysis",
+    "analyst",
+    "discard",
+    "play",
+    "cards",
+    "crib"
+  ],
+  "author": "Mark A. Fitzgerald",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/markafitzgerald1/cribbage-analyst/issues"
+  },
+  "homepage": "https://github.com/markafitzgerald1/cribbage-analyst#readme"
+}
