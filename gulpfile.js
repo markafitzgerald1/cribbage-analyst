@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 gulp.task(lintTaskName, function() {
     return gulp.src(['src/*.js', 'spec/*.js'])
         .pipe(jshint())
+        .pipe(jshint.reporter('default'))
         .pipe(jshint.reporter('fail'));
 });
 
