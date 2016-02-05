@@ -27,6 +27,8 @@
   "homepage": "https://github.com/markafitzgerald1/cribbage-analyst#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-jasmine": "^2.2.1"
+    "gulp-jasmine": "^2.2.1",
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.1"
   }
 }
