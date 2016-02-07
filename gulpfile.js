@@ -33,4 +33,4 @@ gulp.task(continuousTaskName, [jsDocTaskName], function() {
 //    console.error(e.stack);
 //});
 
-gulp.task('default', [continuousTaskName]);
+gulp.task('default', [jsDocTaskName])
