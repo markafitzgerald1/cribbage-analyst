@@ -6,32 +6,71 @@
     "use strict";
 
     var cribbageCard = require('../src/cribbageCard');
+    var _ = require('lodash');
 
     describe("cribbageCard module", function() {
         it("is defined", function() {
             expect(cribbageCard).toBeDefined();
         });
 
-        describe("parse method", function() {
-            it("has a parse method", function() {
-                expect(cribbageCard.parse).toBeDefined();
+        describe("parseIndex method", function() {
+            it("is defined", function() {
+                expect(cribbageCard.parseIndex).toBeDefined();
             });
 
             it("returns ordinal=1 for 'A'", function() {
-                expect(cribbageCard.parse('A').ordinal).toEqual(1);
+                expect(cribbageCard.parseIndex('A').ordinal).toEqual(1);
             });
 
             it("returns ordinal=1 for 'a'", function() {
-                expect(cribbageCard.parse('a').ordinal).toEqual(1);
+                expect(cribbageCard.parseIndex('a').ordinal).toEqual(1);
             });
 
             it("returns undefined for non card index 'X'", function() {
-                expect(cribbageCard.parse('X')).not.toBeDefined();
+                expect(cribbageCard.parseIndex('X')).not.toBeDefined();
             });
 
             it("returns undefined for non card index ''", function() {
-                expect(cribbageCard.parse('')).not.toBeDefined();
+                expect(cribbageCard.parseIndex('')).not.toBeDefined();
             });
+        });
+
+        describe("parseIndices method", function() {
+            it("is defined", function() {
+                expect(cribbageCard.parseIndices).toBeDefined();
+            });
+
+            it("returns an array of one object for '3'", function() {
+                expect(cribbageCard.parseIndices('3').length).toEqual(1);
+            });
+
+            it("returns an array of three objects for '5J9'", function() {
+                expect(cribbageCard.parseIndices('5J9').length).toEqual(3);
+            });
+
+            it("returns an array with the expected ordinals for 'KAKA'",
+                function() {
+                    expect(_.map(cribbageCard.parseIndices('KAKA'),
+                        function(card) {
+                            return card.ordinal;
+                        })).toEqual([13, 1, 13, 1]);
+                });
+
+            it("returns the empty array for ''", function() {
+                expect(cribbageCard.parseIndices('')).toEqual([]);
+            });
+
+            it("returns undefined for a space within the card indices string",
+                function() {
+                    expect(cribbageCard.parseIndices('A2 45')[2])
+                        .not.toBeDefined();
+                });
+
+            it("returns defined for a card index character after an invalid " +
+                "character",
+                function() {
+                    expect(cribbageCard.parseIndices('A2?45')[3]).toBeDefined();
+                });
         });
     });
 }());

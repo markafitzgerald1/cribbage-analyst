@@ -7,31 +7,55 @@
  * @module cribbageCard
  */
 
-/**
- * Parse the given card index string into a corresponding card object.
- * @param {string} cardIndex card index character
- * @returns {{ordinal: number}} card - object with ordinal property
- * @returns {number} card.ordinal - base-1 ordinal of the card index
- * @example
- * // returns { ordinal: 11 }
- * cribbageCard.parse('J')
- * @example
- * // returns undefined
- * cribbageCard.parse('X')
- */
-exports.parse = function(cardIndex) {
-    "use strict";
+var _ = require('lodash');
 
-    if (cardIndex === '') {
-        return undefined;
-    }
+var parseIndex =
+    /**
+     * Parse the given card index string into a corresponding card object.
+     * @alias module:cribbageCard.parseIndex
+     * @param {string} cardIndex single-character card index
+     * @returns {{ordinal: number}} card - object with ordinal property
+     * @returns {number} card.ordinal - base-1 ordinal of the card index
+     * @example
+     * // returns { ordinal: 11 }
+     * cribbageCard.parseIndex('J');
+     * @example
+     * // returns undefined
+     * cribbageCard.parseIndex('X');
+     */
+    exports.parseIndex = function parseIndex(cardIndex) {
+        "use strict";
 
-    var foundIndex = 'A23456789TJQK'.indexOf(cardIndex.toUpperCase());
-    if (foundIndex == -1) {
-        return undefined;
-    }
+        if (cardIndex === '') {
+            return undefined;
+        }
 
-    return {
-        ordinal: foundIndex + 1
+        var foundIndex = 'A23456789TJQK'.indexOf(cardIndex.toUpperCase());
+        if (foundIndex == -1) {
+            return undefined;
+        }
+
+        return {
+            ordinal: foundIndex + 1
+        };
     };
+
+/**
+ * Parse the given card indices string into a corresponding array of card
+ * objects.
+ * @param {string} cardIndices one or more card index characters
+ * @returns {Array<{ordinal: number}>} cards - objects each with an ordinal
+ * property
+ * @example
+ * // returns [ { ordinal: 11 } ]
+ * cribbageCard.parseIndices('J');
+ * @example
+ * // returns [ undefined ]
+ * cribbageCard.parseIndices('X');
+ * @example
+ * // returns [ { ordinal: 3 }, { ordinal: 13 } ]
+ * cribbageCard.parseIndices('3K');
+ */
+exports.parseIndices = function(cardIndices) {
+    return _.map(cardIndices.split(''), parseIndex);
 };
