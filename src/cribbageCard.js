@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/* globals require, exports */
+
 /**
  * Cribbage card module.
  * @module cribbageCard
@@ -25,13 +27,12 @@ var parseIndex =
      */
     exports.parseIndex = function parseIndex(cardIndex) {
         "use strict";
-
         if (cardIndex === '') {
             return undefined;
         }
 
         var foundIndex = 'A23456789TJQK'.indexOf(cardIndex.toUpperCase());
-        if (foundIndex == -1) {
+        if (foundIndex === -1) {
             return undefined;
         }
 
@@ -57,5 +58,6 @@ var parseIndex =
  * cribbageCard.parseIndices('3K');
  */
 exports.parseIndices = function(cardIndices) {
+    "use strict";
     return _.map(cardIndices.split(''), parseIndex);
 };

@@ -1,0 +1,24 @@
+{
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "es3": true,
+    "forin": true,
+    "freeze": true,
+    "globals": [
+      "exports",
+      "require"
+    ],
+    "latedef": true,
+    "maxcomplexity": 3,
+    "maxdepth": 1,
+    "maxparams": 3,
+    "maxstatements": 6,
+    "newcap": true,
+    "noarg": true,
+    "nonbsp": true,
+    "nonew": true,
+    "strict": true,
+    "undef": true,
+    "unused": true
+}
