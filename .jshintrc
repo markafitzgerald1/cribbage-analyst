@@ -5,10 +5,9 @@
     "es3": true,
     "forin": true,
     "freeze": true,
-    "globals": [
-      "exports",
-      "require"
-    ],
+    "globals": {
+        "require": false
+    },
     "latedef": true,
     "maxcomplexity": 3,
     "maxdepth": 1,
