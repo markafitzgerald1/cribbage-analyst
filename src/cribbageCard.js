@@ -11,10 +11,11 @@
 
 var _ = require('lodash');
 
-var parseIndex =
+(function() {
+    "use strict";
+
     /**
      * Parse the given card index string into a corresponding card object.
-     * @alias module:cribbageCard.parseIndex
      * @param {string} cardIndex single-character card index
      * @returns {{ordinal: number}} card - object with ordinal property
      * @returns {number} card.ordinal - base-1 ordinal of the card index
@@ -25,8 +26,7 @@ var parseIndex =
      * // returns undefined
      * cribbageCard.parseIndex('X');
      */
-    exports.parseIndex = function parseIndex(cardIndex) {
-        "use strict";
+    exports.parseIndex = function(cardIndex) {
         if (cardIndex === '') {
             return undefined;
         }
@@ -41,23 +41,23 @@ var parseIndex =
         };
     };
 
-/**
- * Parse the given card indices string into a corresponding array of card
- * objects.
- * @param {string} cardIndices one or more card index characters
- * @returns {Array<{ordinal: number}>} cards - objects each with an ordinal
- * property
- * @example
- * // returns [ { ordinal: 11 } ]
- * cribbageCard.parseIndices('J');
- * @example
- * // returns [ undefined ]
- * cribbageCard.parseIndices('X');
- * @example
- * // returns [ { ordinal: 3 }, { ordinal: 13 } ]
- * cribbageCard.parseIndices('3K');
- */
-exports.parseIndices = function(cardIndices) {
-    "use strict";
-    return _.map(cardIndices.split(''), parseIndex);
-};
+    /**
+     * Parse the given card indices string into a corresponding array of card
+     * objects.
+     * @param {string} cardIndices one or more card index characters
+     * @returns {Array<{ordinal: number}>} cards - objects each with an ordinal
+     * property
+     * @example
+     * // returns [ { ordinal: 11 } ]
+     * cribbageCard.parseIndices('J');
+     * @example
+     * // returns [ undefined ]
+     * cribbageCard.parseIndices('X');
+     * @example
+     * // returns [ { ordinal: 3 }, { ordinal: 13 } ]
+     * cribbageCard.parseIndices('3K');
+     */
+    exports.parseIndices = function(cardIndices) {
+        return _.map(cardIndices.split(''), exports.parseIndex);
+    };
+}());
