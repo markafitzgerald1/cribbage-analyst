@@ -34,3 +34,7 @@ node_modules
 
 # JSDoc output directory
 jsDoc
+
+# gulp-coverage data files
+.coverdata
+.coverrun
