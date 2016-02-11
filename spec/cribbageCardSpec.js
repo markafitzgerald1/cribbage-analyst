@@ -8,7 +8,6 @@
     "use strict";
 
     var cribbageCard = require('../src/cribbageCard');
-    var _ = require('lodash');
 
     describe("cribbageCard module", function() {
         it("is defined", function() {
@@ -52,7 +51,7 @@
 
             it("returns an array with the expected ordinals for 'KAKA'",
                 function() {
-                    expect(_.map(cribbageCard.parseIndices('KAKA'),
+                    expect(cribbageCard.parseIndices('KAKA').map(
                         function(card) {
                             return card.ordinal;
                         })).toEqual([13, 1, 13, 1]);

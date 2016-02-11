@@ -4,15 +4,13 @@
 
 /* globals exports */
 
-/**
- * Cribbage card module.
- * @module cribbageCard
- */
-
-var _ = require('lodash');
-
 (function() {
     "use strict";
+
+    /**
+     * Cribbage card module.
+     * @module cribbageCard
+     */
 
     /**
      * Parse the given card index string into a corresponding card object.
@@ -58,6 +56,6 @@ var _ = require('lodash');
      * cribbageCard.parseIndices('3K');
      */
     exports.parseIndices = function(cardIndices) {
-        return _.map(cardIndices.split(''), exports.parseIndex);
+        return cardIndices.split('').map(exports.parseIndex);
     };
 }());
