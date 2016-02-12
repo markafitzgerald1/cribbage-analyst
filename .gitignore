@@ -38,3 +38,6 @@ jsDoc
 # gulp-coverage data files
 .coverdata
 .coverrun
+
+# Webpack-generated (site) distributable
+dist

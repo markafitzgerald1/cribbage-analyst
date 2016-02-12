@@ -8,10 +8,12 @@
         jasmine = require('gulp-jasmine'),
         cover = require('gulp-coverage'),
         jsdoc = require("gulp-jsdoc"),
+        webpackStream = require('webpack-stream'),
         lintTaskName = 'lint',
         testTaskName = 'test',
         jsDocTaskName = 'jsDoc',
         coverageTaskName = 'coverage',
+        webpackTaskName = 'webpack',
         continuousTaskName = 'continuous',
         sources = 'src/*.js',
         specs = 'spec/*Spec.js';
@@ -45,9 +47,19 @@
             .pipe(cover.enforce());
     });
 
-    gulp.task(continuousTaskName, [coverageTaskName], function() {
-        gulp.watch([sources, specs], [coverageTaskName]);
+    gulp.task(webpackTaskName, [coverageTaskName], function() {
+        return gulp.src('src/cribbageCard.js')
+            .pipe(webpackStream({
+                output: {
+                    filename: 'cribbageCardBundle.js',
+                }
+            }))
+            .pipe(gulp.dest('dist/'));
     });
 
-    gulp.task('default', [coverageTaskName]);
+    gulp.task(continuousTaskName, [webpackTaskName], function() {
+        gulp.watch([sources, specs], [webpackTaskName]);
+    });
+
+    gulp.task('default', [webpackTaskName]);
 }());
