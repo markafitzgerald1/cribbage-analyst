@@ -52,6 +52,8 @@
             .pipe(webpackStream({
                 output: {
                     filename: 'cribbageCardBundle.js',
+                    libraryTarget: 'var',
+                    library: 'cribbageCard'
                 }
             }))
             .pipe(gulp.dest('dist/'));
