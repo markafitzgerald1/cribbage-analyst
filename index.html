@@ -6,8 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Cribbage hand discard analyzer</title>
+    <script src="dist/cribbageCardBundle.js"></script>
 </head>
 <body>
-    Card indices: <input type="text" autofocus/><button type="button">Calculate</button>
+    <div>
+        Card indices: <input id="cardIndices" type="text" autofocus/>
+        <button type="button"
+                onclick="document.getElementById('parsedCardIndices').innerHTML = cribbageCard.parseIndices(document.getElementById('cardIndices').value).map(function(cardIndex) { return cardIndex ? cardIndex.ordinal : '?'; })">Parse</button>
+    </div>
+    <div>
+        Parsed card index ordinals: <span id="parsedCardIndices"/>
+    </div>
 </body>
 </html>
