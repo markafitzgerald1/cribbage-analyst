@@ -11,10 +11,10 @@
         webpackStream = require('webpack-stream'),
         lintTaskName = 'lint',
         testTaskName = 'test',
-        jsDocTaskName = 'jsDoc',
+        jsdocTaskName = 'jsdoc',
         coverageTaskName = 'coverage',
         webpackTaskName = 'webpack',
-        continuousTaskName = 'continuous',
+        continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
         specs = 'spec/*Spec.js';
 
@@ -30,12 +30,17 @@
             .pipe(jasmine());
     });
 
-    gulp.task(jsDocTaskName, [testTaskName], function() {
+    gulp.task(jsdocTaskName, [testTaskName], function() {
         return gulp.src('./src/*.js')
             .pipe(jsdoc('./jsDoc'));
     });
 
-    gulp.task(coverageTaskName, [jsDocTaskName], function() {
+    // the much cheaper of the two -continuous tasks
+    gulp.task(jsdocTaskName + continuousTaskNameSuffix, [jsdocTaskName], function() {
+        gulp.watch(sources, [jsdocTaskName]);
+    });
+
+    gulp.task(coverageTaskName, [jsdocTaskName], function() {
         return gulp.src(specs)
             .pipe(cover.instrument({
                 pattern: [sources]
@@ -48,18 +53,24 @@
     });
 
     gulp.task(webpackTaskName, [coverageTaskName], function() {
-        return gulp.src('src/cribbageCard.js')
+        return gulp.src(sources)
             .pipe(webpackStream({
+                entry: {
+                    cribbageCard: './src/cribbageCard.js',
+                    cribbageScoring: './src/cribbageScoring.js'
+                },
                 output: {
-                    filename: 'cribbageCardBundle.js',
+                    filename: '[name].bundle.js',
                     libraryTarget: 'var',
-                    library: 'cribbageCard'
+                    library: '[name]'
                 }
             }))
             .pipe(gulp.dest('dist/'));
     });
 
-    gulp.task(continuousTaskName, [webpackTaskName], function() {
+    /* sometimes rather expensive (> 1 minute), but thorough and expected
+     * before commit. */
+    gulp.task(webpackTaskName + continuousTaskNameSuffix, [webpackTaskName], function() {
         gulp.watch([sources, specs], [webpackTaskName]);
     });
 
