@@ -14,6 +14,7 @@
 
     /**
      * Calculate the number of points from pairs in the given cards hand.
+     * @function
      * @param {{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module
      * @param {Array<{ordinal: number}>} cards - objects each with an ordinal
