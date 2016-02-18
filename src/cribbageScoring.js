@@ -15,11 +15,11 @@
     /**
      * Calculate the number of points from pairs in the given cards hand.
      * @function
-     * @param {{combination: function(Array)}} jsCombinatorics - an instance
+     * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module
-     * @param {Array<{ordinal: number}>} cards - objects each with an ordinal
+     * @param {!Array<{ordinal: number}>} cards - objects each with an ordinal
      * property
-     * @returns {number} pairsPoints - number of points from pairs in hand
+     * @returns {!number} pairsPoints - number of points from pairs in hand
      * @example
      * // returns 2
      * cribbageScoring.pairsPoints(

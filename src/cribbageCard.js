@@ -15,9 +15,9 @@
     /**
      * Parse the given card index string into a corresponding card object.
      * @function
-     * @param {string} cardIndex single-character card index
-     * @returns {{ordinal: number}} card - object with ordinal property
-     * @returns {number} card.ordinal - base-1 ordinal of the card index
+     * @param {!string} cardIndex single-character card index
+     * @returns {!{ordinal: number}} card - object with ordinal property
+     * @returns {!number} card.ordinal - base-1 ordinal of the card index
      * @example
      * // returns { ordinal: 11 }
      * cribbageCard.parseIndex('J');
@@ -43,9 +43,9 @@
     /**
      * Parse the given card indices string into a corresponding array of card
      * objects.
-     * @param {string} cardIndices one or more card index characters
-     * @returns {Array<{ordinal: number}>} cards - objects each with an ordinal
-     * property
+     * @param {!string} cardIndices one or more card index characters
+     * @returns {!Array<{ordinal: number}>} cards - objects each with an
+     * ordinal property
      * @example
      * // returns [ { ordinal: 11 } ]
      * cribbageCard.parseIndices('J');
