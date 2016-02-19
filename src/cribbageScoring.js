@@ -5,7 +5,7 @@
 /* globals exports */
 
 (function() {
-    "use strict";
+    'use strict';
 
     /**
      * Cribbage scoring module.

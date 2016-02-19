@@ -1,0 +1,15 @@
+{
+    "preset": "google",
+    "validateIndentation": 4,
+    "jsDoc": {
+        "checkAnnotations": {
+            "preset": "jsdoc3",
+            "extra": {
+                "module": true
+            }
+        }
+    },
+    "disallowMultipleVarDecl": false,
+    "requireMultipleVarDecl": true,
+    "disallowKeywordsInComments": ["FIXME", "TODO"]
+}

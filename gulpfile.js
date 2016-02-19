@@ -1,22 +1,25 @@
 /* global require */
 
 (function() {
-    "use strict";
+    'use strict';
 
     var gulp = require('gulp'),
         jshint = require('gulp-jshint'),
+        jscs = require('gulp-jscs'),
         jasmine = require('gulp-jasmine'),
-        jsdoc = require("gulp-jsdoc"),
+        jsdoc = require('gulp-jsdoc'),
         webpackStream = require('webpack-stream'),
         cover = require('gulp-coverage'),
         lintTaskName = 'lint',
+        codestyleTaskName = 'codestyle',
         testTaskName = 'test',
         jsdocTaskName = 'jsdoc',
         webpackTaskName = 'webpack',
         coverageTaskName = 'coverage',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
-        specs = 'spec/*Spec.js';
+        specs = 'spec/*Spec.js',
+        gulpfile = 'gulpfile.js';
 
     gulp.task(lintTaskName, function() {
         return gulp.src([sources, specs])
@@ -25,7 +28,13 @@
             .pipe(jshint.reporter('fail'));
     });
 
-    gulp.task(testTaskName, [lintTaskName], function() {
+    gulp.task(codestyleTaskName, [lintTaskName], function() {
+        return gulp.src([sources, specs, gulpfile])
+            .pipe(jscs())
+            .pipe(jscs.reporter());
+    });
+
+    gulp.task(testTaskName, [codestyleTaskName], function() {
         return gulp.src(specs)
             .pipe(jasmine());
     });
@@ -62,8 +71,6 @@
             gulp.watch([sources, specs], [webpackTaskName]);
         });
 
-    /* TODO: fail build on present FIXMEs via JSCS in Gulp build process...
-     * and Sublime plugin to JSCS. */
     /* sometimes rather expensive (> 1 minute), but thorough and expected
      * before commit. */
     gulp.task(coverageTaskName, [webpackTaskName], function() {

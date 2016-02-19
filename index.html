@@ -12,7 +12,6 @@
 <body>
     <div>
         Card indices: <input id="cardIndices" type="text" autofocus/>
-        <!-- FIXME: this huge input reading, library calling and DOM-manipulating onclick JS statement doesn't belong here as-is, untested and only testable at the integration / end-to-end level. -->
         <button type="button"
                 onclick="document.getElementById('parsedCardIndices').innerHTML = cribbageCard.parseIndices(document.getElementById('cardIndices').value).map(function(cardIndex) { return cardIndex ? cardIndex.ordinal : '?'; })">Parse</button>
     </div>

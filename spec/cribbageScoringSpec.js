@@ -5,18 +5,18 @@
 /* globals describe, it, expect, beforeEach, spyOn */
 
 (function() {
-    "use strict";
+    'use strict';
 
     var cribbageScoring = require('../src/cribbageScoring'),
         cribbageCard = require('../src/cribbageCard.js'),
         jsCombinatorics = require('js-combinatorics');
 
-    describe("cribbageScoring module", function() {
-        it("is defined", function() {
+    describe('cribbageScoring module', function() {
+        it('is defined', function() {
             expect(cribbageScoring).toBeDefined();
         });
     });
-    describe("pairsPoints method", function() {
+    describe('pairsPoints method', function() {
         var jsCombinatoricsSpy;
 
         beforeEach(function() {
@@ -27,25 +27,25 @@
             };
         });
 
-        it("is defined", function() {
+        it('is defined', function() {
             expect(cribbageScoring.pairsPoints).toBeDefined();
         });
 
-        it("calls js-combinatorics.combination() with its cards and subset " +
-            "size 2",
+        it('calls js-combinatorics.combination() with its cards and subset ' +
+            'size 2',
             function() {
-                var cards = cribbageCard.parseIndices("A2345");
-                spyOn(jsCombinatoricsSpy, "combination").and.callThrough();
+                var cards = cribbageCard.parseIndices('A2345');
+                spyOn(jsCombinatoricsSpy, 'combination').and.callThrough();
                 cribbageScoring.pairsPoints(jsCombinatoricsSpy, cards);
                 expect(jsCombinatoricsSpy.combination).toHaveBeenCalledWith(
                     cards, 2);
             });
 
-        it("returns 0 if no js-combinatorics.combination() returned " +
-            "combination is a pair",
+        it('returns 0 if no js-combinatorics.combination() returned ' +
+            'combination is a pair',
             function() {
                 var fakeCards = [];
-                spyOn(jsCombinatoricsSpy, "combination").and.returnValue([
+                spyOn(jsCombinatoricsSpy, 'combination').and.returnValue([
                     [{
                         ordinal: 2
                     }, {
@@ -61,11 +61,11 @@
                     fakeCards)).toEqual(0);
             });
 
-        it("returns 2 if one js-combinatorics.combination() returned " +
-            "combination is a pair",
+        it('returns 2 if one js-combinatorics.combination() returned ' +
+            'combination is a pair',
             function() {
                 var fakeCards = [];
-                spyOn(jsCombinatoricsSpy, "combination").and.returnValue([
+                spyOn(jsCombinatoricsSpy, 'combination').and.returnValue([
                     [{
                         ordinal: 2
                     }, {
@@ -86,11 +86,11 @@
                     fakeCards)).toEqual(2);
             });
 
-        it("returns 8 if four js-combinatorics.combination() returned " +
-            "combinations are pairs",
+        it('returns 8 if four js-combinatorics.combination() returned ' +
+            'combinations are pairs',
             function() {
                 var fakeCards = [];
-                spyOn(jsCombinatoricsSpy, "combination").and.returnValue([
+                spyOn(jsCombinatoricsSpy, 'combination').and.returnValue([
                     [{
                         ordinal: 2
                     }, {
