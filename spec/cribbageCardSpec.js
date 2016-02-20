@@ -10,10 +10,6 @@
     var cribbageCard = require('../src/cribbageCard');
 
     describe('cribbageCard module', function() {
-        it('is defined', function() {
-            expect(cribbageCard).toBeDefined();
-        });
-
         describe('parseIndex method', function() {
             it('is defined', function() {
                 expect(cribbageCard.parseIndex).toBeDefined();

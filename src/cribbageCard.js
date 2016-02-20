@@ -16,7 +16,7 @@
      * Parse the given card index string into a corresponding card object.
      *
      * @function
-     * @param {!string} cardIndex single-character card index
+     * @param {!string} cardIndex - single-character card index
      * @returns {!{ordinal: number}} card - object with ordinal property which
      * is the base-1 ordinal of the card index
      * @example
@@ -45,7 +45,7 @@
      * Parse the given card indices string into a corresponding array of card
      * objects.
      *
-     * @param {!string} cardIndices one or more card index characters
+     * @param {!string} cardIndices - one or more card index characters
      * @returns {!Array<{ordinal: number}>} cards - objects each with an
      * ordinal property
      * @example

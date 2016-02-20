@@ -11,12 +11,6 @@
         cribbageScoring = require('../src/cribbageScoring'),
         cribbageCard = require('../src/cribbageCard');
 
-    describe('cribbageScoring module', function() {
-        it('is defined', function() {
-            expect(cribbageScoring).toBeDefined();
-        });
-    });
-
     describe('pairsPoints method', function() {
         it('returns 8 for a hand with a pairs royale and a separate pair',
             function() {
@@ -47,12 +41,5 @@
                 expect(cribbageScoring.pairsPoints(jsCombinatorics,
                     cribbageCard.parseIndices('JJJJ5'))).toEqual(12);
             });
-
-        /* THEN: cribbageAnalysis module with
-         * postDiscardPoints(dealtHand, scoringFunction) function which runs
-         * pairsPoints() - or any scoring function - across all possible
-         * 6-choose-4 keep-discard splits of the 6-hand.  (Maybe implement as
-         * N-choose-4's from N-hand first - cap to 6-ish (reasonable,
-         * sensible bound) afterwards). */
     });
 }());

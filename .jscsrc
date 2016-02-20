@@ -1,5 +1,7 @@
 {
+    "verbose": true,
     "preset": "google",
+    "maximumLineLength": 88,
     "validateIndentation": 4,
     "jsDoc": {
         "checkAnnotations": {
@@ -7,9 +9,20 @@
             "extra": {
                 "module": true
             }
-        }
+        },
+        "enforceExistence": true,
+        "checkParamExistence": true,
+        "checkParamNames": true,
+        "requireParamTypes": true,
+        "checkRedundantParams": true,
+        "checkReturnTypes": true,
+        "requireHyphenBeforeDescription": true,
+        "requireNewlineAfterDescription": true
     },
     "disallowMultipleVarDecl": false,
     "requireMultipleVarDecl": true,
-    "disallowKeywordsInComments": ["FIXME", "TODO"]
+    "disallowKeywordsInComments": [
+        "FIXME",
+        "TODO"
+    ]
 }

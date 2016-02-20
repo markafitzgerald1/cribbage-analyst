@@ -5,9 +5,9 @@
 
     var gulp = require('gulp'),
         jshint = require('gulp-jshint'),
-        jscs = require('gulp-jscs'),
-        jasmine = require('gulp-jasmine'),
         jsdoc = require('gulp-jsdoc'),
+        jasmine = require('gulp-jasmine'),
+        jscs = require('gulp-jscs'),
         webpackStream = require('webpack-stream'),
         cover = require('gulp-coverage'),
         lintTaskName = 'lint',
@@ -19,7 +19,9 @@
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
         specs = 'spec/*Spec.js',
-        gulpfile = 'gulpfile.js';
+        gulpfile = 'gulpfile.js',
+        jshintrc = '.jshintrc',
+        jscsrc = '.jscsrc';
 
     gulp.task(lintTaskName, function() {
         return gulp.src([sources, specs])
@@ -28,13 +30,7 @@
             .pipe(jshint.reporter('fail'));
     });
 
-    gulp.task(codestyleTaskName, [lintTaskName], function() {
-        return gulp.src([sources, specs, gulpfile])
-            .pipe(jscs())
-            .pipe(jscs.reporter());
-    });
-
-    gulp.task(testTaskName, [codestyleTaskName], function() {
+    gulp.task(testTaskName, [lintTaskName], function() {
         return gulp.src(specs)
             .pipe(jasmine());
     });
@@ -44,18 +40,20 @@
             .pipe(jsdoc('./jsDoc'));
     });
 
-    // the much cheaper of the two -continuous tasks
-    gulp.task(jsdocTaskName + continuousTaskNameSuffix, [jsdocTaskName],
-        function() {
-            gulp.watch([sources, specs], [jsdocTaskName]);
-        });
+    gulp.task(codestyleTaskName, [jsdocTaskName], function() {
+        return gulp.src([sources, specs, gulpfile])
+            .pipe(jscs())
+            .pipe(jscs.reporter())
+            .pipe(jscs.reporter('fail'));
+    });
 
-    gulp.task(webpackTaskName, [jsdocTaskName], function() {
+    gulp.task(webpackTaskName, [codestyleTaskName], function() {
         return gulp.src(sources)
             .pipe(webpackStream({
                 entry: {
                     cribbageCard: './src/cribbageCard.js',
-                    cribbageScoring: './src/cribbageScoring.js'
+                    cribbageScoring: './src/cribbageScoring.js',
+                    cribbageAnalysis: './src/cribbageAnalysis.js'
                 },
                 output: {
                     filename: '[name].bundle.js',
@@ -66,9 +64,12 @@
             .pipe(gulp.dest('dist/'));
     });
 
+    // the much cheaper of the two -continuous tasks
     gulp.task(webpackTaskName + continuousTaskNameSuffix, [webpackTaskName],
         function() {
-            gulp.watch([sources, specs], [webpackTaskName]);
+            gulp.watch([sources, specs, jshintrc, jscsrc], [
+                webpackTaskName
+            ]);
         });
 
     /* sometimes rather expensive (> 1 minute), but thorough and expected

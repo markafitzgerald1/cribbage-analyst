@@ -14,9 +14,10 @@
 
     /**
      * Calculate the number of points from pairs in the given cards hand.
+     *
      * @function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
-     * of the js-combinatorics module
+     * of the js-combinatorics module having at least a 'combination' function
      * @param {!Array<{ordinal: number}>} cards - objects each with an ordinal
      * property
      * @returns {!number} pairsPoints - number of points from pairs in hand
@@ -34,7 +35,10 @@
      *     [{ordinal: 1}, {ordinal: 5}, {ordinal: 9}, {ordinal: 13}]);
      */
     exports.pairsPoints = function(jsCombinatorics, cards) {
-        // return combinatorics.combination(cards, 3);
+        if (cards.length < 2) {
+            return 0;
+        }
+
         return jsCombinatorics.combination(cards, 2).map(function(pair) {
             return pair[0].ordinal === pair[1].ordinal ? 2 : 0;
         }).reduce(function(previousReduceValue, currentArrayValue) {
