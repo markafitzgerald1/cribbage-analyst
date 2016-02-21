@@ -18,8 +18,8 @@
      * @function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
-     * @param {!Array<{ordinal: number}>} cards - objects each with an ordinal
-     * property
+     * @param {!Array<{ordinal: number}>} cards - zero or more objects each
+     * having an ordinal property
      * @returns {!number} pairsPoints - number of points from pairs in hand
      * @example
      * // returns 2

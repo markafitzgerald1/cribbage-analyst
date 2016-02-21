@@ -45,7 +45,7 @@
      * Parse the given card indices string into a corresponding array of card
      * objects.
      *
-     * @param {!string} cardIndices - one or more card index characters
+     * @param {!string} cardIndices - zero or more card index characters
      * @returns {!Array<{ordinal: number}>} cards - objects each with an
      * ordinal property
      * @example

@@ -21,8 +21,8 @@
      * of the js-combinatorics module having at least a 'combination' function
      * @param {!{xor: function(Array, Array)}} _ - an instance of the lodash
      * module having at least a 'xor' function
-     * @param {!Array<{ordinal: number}>} cards - objects each with an ordinal
-     * property
+     * @param {!Array<{ordinal: number}>} cards - zero or more objects each
+     * having an ordinal property
      * @param {!function(!{combination: function(Array)}, !Array)} calculateInHandPoints
      * - a function which uses jsCombinatorics to calculate the number of
      * in-hand points in a given {Array} of cards.
@@ -30,6 +30,12 @@
      * discardedCards: !Array<{ordinal: number}>, points: !number}>}
      * inHandPointsPerDiscardOption - objects each containing the number of
      * in-hand points for a possible hand discard option.
+     * @example
+     * // returns [{ keptCards: [{ordinal: 1}, {ordinal: 3}, {ordinal: 1},
+     * // {ordinal: 10}], discardedCards: [], points: 2}]
+     * cribbageAnalysis.inHandPointsPerDiscardOption(jsCombinatorics, _,
+     *     [{ordinal: 1}, {ordinal: 3}, {ordinal: 1}, {ordinal: 10}],
+     *     cribbageScoring.pairsPoints);
      */
     exports.inHandPointsPerDiscardOption = function(jsCombinatorics, _,
         cards,

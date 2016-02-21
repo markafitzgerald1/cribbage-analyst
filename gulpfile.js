@@ -51,9 +51,7 @@
         return gulp.src(sources)
             .pipe(webpackStream({
                 entry: {
-                    cribbageCard: './src/cribbageCard.js',
-                    cribbageScoring: './src/cribbageScoring.js',
-                    cribbageAnalysis: './src/cribbageAnalysis.js'
+                    cribbageAnalyst: './src/cribbageAnalyst.js'
                 },
                 output: {
                     filename: '[name].bundle.js',

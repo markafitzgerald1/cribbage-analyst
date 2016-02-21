@@ -37,6 +37,10 @@
                 expect(cribbageCard.parseIndices).toBeDefined();
             });
 
+            it('returns an empty array for the empty string', function() {
+                expect(cribbageCard.parseIndices('').length).toEqual(0);
+            });
+
             it('returns an array of one object for "3"', function() {
                 expect(cribbageCard.parseIndices('3').length).toEqual(1);
             });
