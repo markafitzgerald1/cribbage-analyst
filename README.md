@@ -1,4 +1,4 @@
-# cribbage-analyst [![Build Status](https://travis-ci.org/markafitzgerald1/cribbage-analyst.svg?branch=master)](https://travis-ci.org/markafitzgerald1/cribbage-analyst) [![Coverage Status](https://coveralls.io/repos/github/markafitzgerald1/cribbage-analyst/badge.svg?branch=master)](https://coveralls.io/github/markafitzgerald1/cribbage-analyst?branch=master)
+# cribbage-analyst [![Build Status](https://travis-ci.org/markafitzgerald1/cribbage-analyst.svg?branch=master)](https://travis-ci.org/markafitzgerald1/cribbage-analyst)
 Two-player [cribbage](https://en.wikipedia.org/wiki/Cribbage) discard analysis tool.
 
 To locally configure and install cribbage-analyst, [install Node.js](https://nodejs.org/en/), [clone this Git repository](https://help.github.com/articles/cloning-a-repository/), then run `npm install` to download project development dependencies.
