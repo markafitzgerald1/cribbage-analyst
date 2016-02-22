@@ -12,7 +12,7 @@
     <div>
         Card indices: <input id="cardIndices" type="text" autofocus/>
         <button type="button"
-                onclick="document.getElementById('discardOptions').innerHTML = cribbageAnalyst.analyzeDiscardOptions(document.getElementById('cardIndices').value).map(function(analyzeDiscardOption) { return '<br>' + analyzeDiscardOption.keptCards.map(function(keptCard) { return keptCard.ordinal; }) + ': ' + analyzeDiscardOption.points; })">Analyze</button>
+                onclick="document.getElementById('discardOptions').innerHTML = cribbageAnalyst.analyzeDiscardOptions(document.getElementById('cardIndices').value).map(function(analyzeDiscardOption) { return '<br>Keep ' + analyzeDiscardOption.keptCards.map(function(keptCard) { return keptCard.ordinal; }) + ', discard ' + analyzeDiscardOption.discardedCards.map(function(discardedCard) { return discardedCard.ordinal; }) + ': ' + analyzeDiscardOption.points + ' points'; }) + '.'">Analyze</button>
     </div>
     <div>
         Discard option kept cards and pairs points: <span id="discardOptions"/>

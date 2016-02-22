@@ -12,6 +12,18 @@
      * @module cribbageAnalysis
      */
 
+    // jscs:disable jsDoc
+    function createDiscardOptionWithInHandPoints(keptCards,
+        discardedCards,
+        points) {
+        return {
+            keptCards: keptCards,
+            discardedCards: discardedCards,
+            points: points
+        };
+    }
+    // jscs:enable jsDoc
+
     /**
      * Calculate the number of in-hand points for each legal manner in which the
      * player could discard cards to the crib from the given hand.
@@ -28,7 +40,7 @@
      * in-hand points in a given {Array} of cards.
      * @returns {!Array<{keptCards: !Array<{ordinal: number}>,
      * discardedCards: !Array<{ordinal: number}>, points: !number}>}
-     * inHandPointsPerDiscardOption - objects each containing the number of
+     * discardOptionsWithInHandPoints - objects each containing the number of
      * in-hand points for a possible hand discard option.
      * @example
      * // returns [{ keptCards: [{ordinal: 1}, {ordinal: 3}, {ordinal: 1},
@@ -45,23 +57,16 @@
             return [];
         }
         if (cards.length < keptHandSize) {
-            return [{
-                keptCards: cards,
-                discardedCards: [],
-                points: calculateInHandPoints(jsCombinatorics,
-                    cards)
-            }];
+            return [createDiscardOptionWithInHandPoints(cards, [],
+                calculateInHandPoints(jsCombinatorics, cards))];
         }
 
         return jsCombinatorics.combination(cards, keptHandSize).map(
-            function(
-                keptCards) {
-                return {
-                    keptCards: keptCards,
-                    discardedCards: _.xor(cards, keptCards),
-                    points: calculateInHandPoints(jsCombinatorics,
-                        keptCards)
-                };
+            function(keptCards) {
+                return createDiscardOptionWithInHandPoints(
+                    keptCards, _.xor(cards, keptCards),
+                    calculateInHandPoints(jsCombinatorics,
+                        keptCards));
             });
     };
 }());
