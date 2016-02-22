@@ -10,12 +10,14 @@
         jscs = require('gulp-jscs'),
         webpackStream = require('webpack-stream'),
         cover = require('gulp-coverage'),
+        coveralls = require('gulp-coveralls'),
         lintTaskName = 'lint',
         codestyleTaskName = 'codestyle',
         testTaskName = 'test',
         jsdocTaskName = 'jsdoc',
         webpackTaskName = 'webpack',
         coverageTaskName = 'coverage',
+        coverallsTaskName = 'coveralls',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
         specs = 'spec/*Spec.js',
@@ -84,5 +86,10 @@
             .pipe(cover.enforce());
     });
 
-    gulp.task('default', [coverageTaskName]);
+    gulp.task(coverallsTaskName, [coverageTaskName], function() {
+        return gulp.src('test/coverage/**/lcov.info').pipe(
+            coveralls());
+    });
+
+    gulp.task('default', [coverallsTaskName]);
 }());
