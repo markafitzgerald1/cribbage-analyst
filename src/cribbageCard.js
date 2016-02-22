@@ -17,10 +17,11 @@
      *
      * @function
      * @param {!string} cardIndex - single-character card index
-     * @returns {!{ordinal: number}} card - object with ordinal property which
-     * is the base-1 ordinal of the card index
+     * @returns {!{ordinal: !number, index: !string}} card - object with ordinal
+     * property which is the base-1 ordinal of the card index and index property
+     * which equals cardIndex
      * @example
-     * // returns { ordinal: 11 }
+     * // returns { ordinal: 11, index: 'J' }
      * cribbageCard.parseIndex('J');
      * @example
      * // returns undefined
@@ -37,7 +38,8 @@
         }
 
         return {
-            ordinal: foundIndex + 1
+            ordinal: foundIndex + 1,
+            index: cardIndex
         };
     };
 
@@ -46,17 +48,17 @@
      * objects.
      *
      * @param {!string} cardIndices - zero or more card index characters
-     * @returns {!Array<{ordinal: number}>} cards - objects each with an
-     * ordinal property
+     * @returns {!Array<{ordinal: !number, index: !string}>} cards - objects
+     * each with ordinal and index properties
      * @example
-     * // returns [ { ordinal: 11 } ]
+     * // returns [ { ordinal: 11, index: 'J' } ]
      * cribbageCard.parseIndices('J');
      * @example
      * // returns [ undefined ]
      * cribbageCard.parseIndices('X');
      * @example
-     * // returns [ { ordinal: 3 }, { ordinal: 13 } ]
-     * cribbageCard.parseIndices('3K');
+     * // returns [ { ordinal: 3, index: '3' }, { ordinal: 13, index: 'k' } ]
+     * cribbageCard.parseIndices('3k');
      */
     exports.parseIndices = function(cardIndices) {
         return cardIndices.split('').map(exports.parseIndex);

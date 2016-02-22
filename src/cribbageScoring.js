@@ -18,8 +18,8 @@
      * @function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
-     * @param {!Array<{ordinal: number}>} cards - zero or more objects each
-     * having an ordinal property
+     * @param {!Array<{ordinal: !number}>} cards - zero or more objects each
+     * having ordinal properties
      * @returns {!number} pairsPoints - number of points from pairs in hand
      * @example
      * // returns 2
@@ -32,7 +32,8 @@
      * @example
      * // returns 0
      * cribbageScoring.pairsPoints(
-     *     [{ordinal: 1}, {ordinal: 5}, {ordinal: 9}, {ordinal: 13}]);
+     *     [{ordinal: 1, index: 'A'}, {ordinal: 5, index: '5'},
+     *      {ordinal: 9, index: '9'}, {ordinal: 13, index: 'K'}]);
      */
     exports.pairsPoints = function(jsCombinatorics, cards) {
         if (cards.length < 2) {
