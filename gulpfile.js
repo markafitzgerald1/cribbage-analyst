@@ -4,12 +4,14 @@
     'use strict';
 
     var gulp = require('gulp'),
+        del = require('del'),
         jshint = require('gulp-jshint'),
         jsdoc = require('gulp-jsdoc'),
         jasmine = require('gulp-jasmine'),
         jscs = require('gulp-jscs'),
         webpackStream = require('webpack-stream'),
         cover = require('gulp-coverage'),
+        cleanTaskName = 'clean',
         lintTaskName = 'lint',
         codestyleTaskName = 'codestyle',
         testTaskName = 'test',
@@ -23,7 +25,18 @@
         jshintrc = '.jshintrc',
         jscsrc = '.jscsrc';
 
-    gulp.task(lintTaskName, function() {
+    gulp.task(cleanTaskName, function() {
+        return del([
+            // JSDoc
+            'jsDoc/',
+            // webpack bundles
+            'dist/',
+            // coverageTaskName files
+            '.coverdata/', '.coverrun', 'coverage'
+        ]);
+    });
+
+    gulp.task(lintTaskName, [cleanTaskName], function() {
         return gulp.src([sources, specs])
             .pipe(jshint())
             .pipe(jshint.reporter('default'))
