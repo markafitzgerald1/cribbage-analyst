@@ -4,6 +4,5 @@ node_js:
   - "4.3"
   - "4.2"
 before_script:
-  - npm install -g gulp
-  - gulp startServer &
-script: gulp
+  - node_modules/gulp/bin/gulp.js startServer &
+script: node_modules/gulp/bin/gulp.js clean default
