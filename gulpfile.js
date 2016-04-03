@@ -11,6 +11,7 @@
         jscs = require('gulp-jscs'),
         webpackStream = require('webpack-stream'),
         cover = require('gulp-coverage'),
+        connect = require('gulp-connect'),
         cleanTaskName = 'clean',
         lintTaskName = 'lint',
         codestyleTaskName = 'codestyle',
@@ -18,6 +19,7 @@
         jsdocTaskName = 'jsdoc',
         webpackTaskName = 'webpack',
         coverageTaskName = 'coverage',
+        startServerTaskName = 'startServer',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
         specs = 'spec/*Spec.js',
@@ -83,6 +85,11 @@
             ]);
         });
 
+    /* must be started in separate Gulp run in order for nightwatchTaskName to
+     * pass. */
+    gulp.task(startServerTaskName, function() {
+        connect.server();
+    });
     /* sometimes rather expensive (> 1 minute), but thorough and expected
      * before commit. */
     gulp.task(coverageTaskName, [webpackTaskName], function() {
