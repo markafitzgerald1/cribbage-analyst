@@ -12,6 +12,7 @@
         webpackStream = require('webpack-stream'),
         cover = require('gulp-coverage'),
         connect = require('gulp-connect'),
+        nightwatch = require('gulp-nightwatch'),
         cleanTaskName = 'clean',
         lintTaskName = 'lint',
         codestyleTaskName = 'codestyle',
@@ -20,9 +21,12 @@
         webpackTaskName = 'webpack',
         coverageTaskName = 'coverage',
         startServerTaskName = 'startServer',
+        nightwatchTaskName = 'nightwatch',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
+        endpointSources = 'src/cribbageAnalyst.js',
         specs = 'spec/*Spec.js',
+        nightwatchSpecs = 'nightwatchSpec/*.js',
         gulpfile = 'gulpfile.js',
         jshintrc = '.jshintrc',
         jscsrc = '.jscsrc';
@@ -33,6 +37,8 @@
             'jsDoc/',
             // webpack bundles
             'dist/',
+            // nightwatch output
+            'e2e_tests_output', 'e2e_test_screenshots',
             // coverageTaskName files
             '.coverdata/', '.coverrun', 'coverage'
         ]);
@@ -56,7 +62,7 @@
     });
 
     gulp.task(codestyleTaskName, [jsdocTaskName], function() {
-        return gulp.src([sources, specs, gulpfile])
+        return gulp.src([sources, specs, nightwatchSpecs, gulpfile])
             .pipe(jscs())
             .pipe(jscs.reporter())
             .pipe(jscs.reporter('fail'));
@@ -80,7 +86,9 @@
     // the much cheaper of the two -continuous tasks
     gulp.task(webpackTaskName + continuousTaskNameSuffix, [webpackTaskName],
         function() {
-            gulp.watch([sources, specs, jshintrc, jscsrc], [
+            gulp.watch([sources, specs, nightwatchSpecs, jshintrc,
+                jscsrc
+            ], [
                 webpackTaskName
             ]);
         });
@@ -90,12 +98,31 @@
     gulp.task(startServerTaskName, function() {
         connect.server();
     });
+
+    gulp.task(nightwatchTaskName, [webpackTaskName], function() {
+        return gulp.src('')
+            .pipe(nightwatch({
+                configFile: 'spec/nightwatch.json'
+            }));
+    });
+
+    gulp.task(nightwatchTaskName + continuousTaskNameSuffix, [
+            nightwatchTaskName
+        ],
+        function() {
+            gulp.watch([sources, specs, nightwatchSpecs, jshintrc,
+                jscsrc
+            ], [
+                nightwatchTaskName
+            ]);
+        });
+
     /* sometimes rather expensive (> 1 minute), but thorough and expected
      * before commit. */
-    gulp.task(coverageTaskName, [webpackTaskName], function() {
+    gulp.task(coverageTaskName, [nightwatchTaskName], function() {
         return gulp.src(specs)
             .pipe(cover.instrument({
-                pattern: [sources]
+                pattern: [sources, '!' + endpointSources]
             }))
             .pipe(jasmine())
             .pipe(cover.gather())

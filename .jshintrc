@@ -11,7 +11,7 @@
     "maxcomplexity": 3,
     "maxdepth": 1,
     "maxparams": 4,
-    "maxstatements": 10,
+    "maxstatements": 13,
     "newcap": true,
     "noarg": true,
     "nonbsp": true,

@@ -41,3 +41,6 @@ jsDoc
 
 # Webpack-generated (site) distributable
 dist
+
+# Nightwatch.JS output
+e2e_tests_output
