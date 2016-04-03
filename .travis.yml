@@ -6,5 +6,3 @@ node_js:
 before_script:
   - node_modules/gulp/bin/gulp.js startServer &
 script: node_modules/gulp/bin/gulp.js clean default
-after_script:
-  - kill %1
