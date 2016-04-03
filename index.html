@@ -9,13 +9,21 @@
     <script src="dist/cribbageAnalyst.bundle.js"></script>
 </head>
 <body>
-    <div>
-        Card indices: <input id="cardIndices" type="text" autofocus/>
-        <button type="button"
-                onclick="document.getElementById('discardOptions').innerHTML = cribbageAnalyst.analyzeDiscardOptions(document.getElementById('cardIndices').value).map(function(analyzeDiscardOption) { return '<br>Keep ' + analyzeDiscardOption.keptCards.map(function(keptCard) { return keptCard.index; }).join('') + ', discard ' + analyzeDiscardOption.discardedCards.map(function(discardedCard) { return discardedCard.index; }).join('') + ' = ' + analyzeDiscardOption.points + ' points'; }) + '.'">Analyze</button>
+    <div id="cribbageAnalyst">
+        <div>
+            Card indices:
+            <input id="cardIndices" type="text" v-model="cardIndices"
+                autofocus/>
+        </div>
+        <div>Discard option kept cards and pairs points:</div>
+        <div id="analyses">
+            <analysis v-for="analysis in analyses" v-bind:analysis="analysis">
+            </analysis>
+        </div>
     </div>
-    <div>
-        Discard option kept cards and pairs points: <span id="discardOptions"/>
-    </div>
+    <script>
+        /* global cribbageAnalyst */
+        cribbageAnalyst.initVue();
+    </script>
 </body>
 </html>

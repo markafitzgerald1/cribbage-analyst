@@ -18,10 +18,9 @@
                 .url('http://localhost:8080/index.html')
                 .waitForElementVisible('body', 1000)
                 .setValue('input[type=text]', 'Q7742A')
-                .click('button')
                 .pause(100)
-                .assert.containsText('#discardOptions',
-                    'Keep Q77A, discard 42 = 2 points')
+                .assert.containsText('#analyses',
+                    'Keep Q77A, discard 42 = 2 points.')
                 .end();
         },
     };
