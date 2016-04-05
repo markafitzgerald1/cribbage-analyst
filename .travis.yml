@@ -2,7 +2,6 @@ language: node_js
 node_js:
   - "stable"
   - "4"
-  - "4.4"
 before_script:
   - node_modules/gulp/bin/gulp.js startServer &
 script: node_modules/gulp/bin/gulp.js clean default
