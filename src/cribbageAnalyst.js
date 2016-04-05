@@ -41,6 +41,8 @@
             template: '<span v-for="card in cards">{{card.index}}</span>'
         });
 
+        Vue.config.debug = true;
+
         /*jshint -W031 */
         new Vue({
             el: '#cribbageAnalyst',
