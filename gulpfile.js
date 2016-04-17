@@ -24,6 +24,7 @@
         nightwatchTaskName = 'nightwatch',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
+        htmlSource = 'index.html',
         endpointSources = 'src/cribbageAnalyst.js',
         specs = 'spec/*Spec.js',
         nightwatchSpecs = 'nightwatchSpec/*.js',
@@ -110,8 +111,8 @@
             nightwatchTaskName
         ],
         function() {
-            gulp.watch([sources, specs, nightwatchSpecs, jshintrc,
-                jscsrc
+            gulp.watch([htmlSource, sources, specs, nightwatchSpecs,
+                jshintrc, jscsrc
             ], [
                 nightwatchTaskName
             ]);
