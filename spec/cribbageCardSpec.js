@@ -25,10 +25,11 @@
                     .ordinal).toEqual(1);
             });
 
-            it('returns undefined for non card index "X"',
+            it(
+                'returns ordinal=undefined for non card index "X"',
                 function() {
-                    expect(cribbageCard.parseIndex('X'))
-                        .not.toBeDefined();
+                    expect(cribbageCard.parseIndex('X')
+                        .ordinal).not.toBeDefined();
                 });
 
             it('returns undefined for non card index "',
@@ -92,11 +93,10 @@
             });
 
             it(
-                'returns undefined for a space within the card indices string',
+                'returns ordinal=undefined for a space within the card indices string',
                 function() {
                     expect(cribbageCard.parseIndices(
-                            'A2 45')[2])
-                        .not.toBeDefined();
+                        'A2 45')[2].ordinal).not.toBeDefined();
                 });
 
             it(

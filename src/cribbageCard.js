@@ -18,13 +18,13 @@
      * @function
      * @param {!string} cardIndex - single-character card index
      * @returns {!{ordinal: !number, index: !string}} card - object with ordinal
-     * property which is the base-1 ordinal of the card index and index property
-     * which equals cardIndex
+     * property which is the base-1 ordinal of the card index if a valid index,
+     * otherwise undefined, and index property which equals cardIndex
      * @example
      * // returns { ordinal: 11, index: 'J' }
      * cribbageCard.parseIndex('J');
      * @example
-     * // returns undefined
+     * // returns { ordinal: undefined, index: 'X' }
      * cribbageCard.parseIndex('X');
      */
     exports.parseIndex = function(cardIndex) {
@@ -33,12 +33,8 @@
         }
 
         var foundIndex = 'A23456789TJQK'.indexOf(cardIndex.toUpperCase());
-        if (foundIndex === -1) {
-            return undefined;
-        }
-
         return {
-            ordinal: foundIndex + 1,
+            ordinal: foundIndex === -1 ? undefined : foundIndex + 1,
             index: cardIndex
         };
     };

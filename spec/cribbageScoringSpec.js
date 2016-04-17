@@ -130,5 +130,18 @@
                     jsCombinatoricsSpy,
                     fakeCards)).toEqual(8);
             });
+
+        it('returns 0 for a known index and an unknown index',
+            function() {
+                expect(cribbageScoring.pairsPoints(
+                    jsCombinatorics, cribbageCard.parseIndices(
+                        'AX'))).toEqual(0);
+            });
+
+        it('returns 0 for two unknown indices', function() {
+            expect(cribbageScoring.pairsPoints(
+                jsCombinatorics, cribbageCard.parseIndices(
+                    'XY'))).toEqual(0);
+        });
     });
 }());

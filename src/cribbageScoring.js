@@ -18,8 +18,9 @@
      * @function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
-     * @param {!Array<{ordinal: !number}>} cards - zero or more objects each
-     * having ordinal properties
+     * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
+     * having ordinal properties, indicating parseable indices, or being
+     * undefined, indicating non-parseable indices
      * @returns {!number} pairsPoints - number of points from pairs in hand
      * @example
      * // returns 2
@@ -41,6 +42,9 @@
         }
 
         return jsCombinatorics.combination(cards, 2).map(function(pair) {
+            if (!pair[0].ordinal || !pair[1].ordinal) {
+                return 0;
+            }
             return pair[0].ordinal === pair[1].ordinal ? 2 : 0;
         }).reduce(function(previousReduceValue, currentArrayValue) {
             return previousReduceValue + currentArrayValue;

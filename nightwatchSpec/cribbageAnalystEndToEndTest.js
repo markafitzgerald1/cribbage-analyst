@@ -12,7 +12,7 @@
 
     module.exports = {
         // jscs:disable jsDoc
-        'Happy path test': function(browser) {
+        'happy path': function(browser) {
             // jscs:enable jsDoc
             browser
                 .url('http://localhost:8080/index.html')
@@ -23,5 +23,18 @@
                     'Keep Q77A, discard 42 = 2 points.')
                 .end();
         },
+
+        // jscs:disable jsDoc
+        'unknown card index': function(browser) {
+            // jscs:enable jsDoc
+            browser
+                .url('http://localhost:8080/index.html')
+                .waitForElementVisible('body', 1000)
+                .setValue('input[type=text]', 'A233XY')
+                .pause(100)
+                .assert.containsText('#analyses',
+                    'Keep A33X, discard 2Y = 2 points.')
+                .end();
+        }
     };
 }());
