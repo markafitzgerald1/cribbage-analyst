@@ -17,7 +17,7 @@
         </div>
         <div>Discard option kept cards and pairs points:</div>
         <div id="analyses">
-            <analysis v-for="analysis in analyses" v-bind:analysis="analysis">
+            <analysis v-for="analysis in analyses | orderBy 'points' -1" v-bind:analysis="analysis">
             </analysis>
         </div>
     </div>

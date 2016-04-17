@@ -35,6 +35,20 @@
                 .assert.containsText('#analyses',
                     'Keep A33X, discard 2Y = 2 points.')
                 .end();
+        },
+
+        // jscs:disable jsDoc
+        'analyses sorted in descending points order': function(browser) {
+            // jscs:enable jsDoc
+            browser
+                .url('http://localhost:8080/index.html')
+                .waitForElementVisible('body', 1000)
+                .setValue('input[type=text]', 'Q7777A')
+                .pause(100)
+                // need to assert first analysis text
+                .assert.containsText('#analyses > :first-child',
+                    'Keep 7777, discard QA = 12 points.')
+                .end();
         }
     };
 }());
