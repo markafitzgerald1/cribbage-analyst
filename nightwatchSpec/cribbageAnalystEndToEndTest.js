@@ -49,6 +49,19 @@
                 .assert.containsText('#analyses > :first-child',
                     'Keep 7777, discard QA = 12 points.')
                 .end();
+        },
+
+        // jscs:disable jsDoc
+        'no cards to discard': function(browser) {
+            // jscs:enable jsDoc
+            browser
+                .url('http://localhost:8080/index.html')
+                .waitForElementVisible('body', 1000)
+                .setValue('input[type=text]', 'K774')
+                .pause(100)
+                .assert.containsText('#analyses',
+                    'Keep K774, discard nothing = 2 points.')
+                .end();
         }
     };
 }());

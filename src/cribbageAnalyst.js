@@ -27,13 +27,16 @@
     exports.initVue = function() {
         Vue.component('analysis', {
             props: ['analysis'],
-            template: '<div class="analysis">Keep ' +
+            template: '<div class="analysis">' +
+                'Keep ' +
                 '<card-list v-bind:cards="analysis.keptCards">' +
-                '</card-list>, ' +
-                'discard ' +
-                '<card-list v-bind:cards="analysis.discardedCards">' +
-                '</card-list> ' +
-                '= {{analysis.points}} points.</div>'
+                '</card-list>, discard ' +
+                '<template v-if="analysis.discardedCards.length > 0">' +
+                '    <card-list v-bind:cards="analysis.discardedCards">' +
+                '    </card-list>' +
+                '</template>' +
+                '<template v-else>nothing</template>' +
+                ' = {{analysis.points}} points.</div>'
         });
 
         Vue.component('card-list', {
