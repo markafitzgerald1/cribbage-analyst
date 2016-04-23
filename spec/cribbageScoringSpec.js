@@ -144,4 +144,10 @@
                     'XY'))).toEqual(0);
         });
     });
+
+    describe('fifteensPoints method', function() {
+        it('is defined', function() {
+            expect(cribbageScoring.fifteensPoints).toBeDefined();
+        });
+    });
 }());

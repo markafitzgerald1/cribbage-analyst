@@ -50,4 +50,12 @@
             return previousReduceValue + currentArrayValue;
         });
     };
+
+    /**
+     * Calculate the number of points from fifteens in the given cards hand.
+     *
+     * @function
+     */
+    exports.fifteensPoints = function() {
+    };
 }());
