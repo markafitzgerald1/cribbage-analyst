@@ -149,5 +149,9 @@
         it('is defined', function() {
             expect(cribbageScoring.fifteensPoints).toBeDefined();
         });
+
+        it('returns undefined', function() {
+            expect(cribbageScoring.fifteensPoints()).not.toBeDefined();
+        });
     });
 }());
