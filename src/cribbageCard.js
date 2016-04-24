@@ -12,14 +12,19 @@
      * @module cribbageCard
      */
 
+    var maxCountingValue = 10;
+
     /**
-     * Parse the given card index string into a corresponding card object.
+     * Parse the given card index string into a corresponding card object
+     * containing the source index, its base-1 ordinal, and its counting value.
      *
      * @function
      * @param {!string} cardIndex - single-character card index
-     * @returns {!{ordinal: !number, index: !string}} card - object with ordinal
-     * property which is the base-1 ordinal of the card index if a valid index,
-     * otherwise undefined, and index property which equals cardIndex
+     * @returns {!{ordinal: !number, index: !string, countingValue: !number}}
+     * card - object with ordinal property which is the base-1 ordinal of the
+     * card index if a valid index, otherwise undefined; index property which
+     * equals cardIndex; and countingValue, the cribbage counting value of the
+     * given card.
      * @example
      * // returns { ordinal: 11, index: 'J' }
      * cribbageCard.parseIndex('J');
@@ -32,10 +37,12 @@
             return undefined;
         }
 
-        var foundIndex = 'A23456789TJQK'.indexOf(cardIndex.toUpperCase());
+        var foundIndex = 'A23456789TJQK'.indexOf(cardIndex.toUpperCase()),
+            ordinal = foundIndex === -1 ? undefined : foundIndex + 1;
         return {
-            ordinal: foundIndex === -1 ? undefined : foundIndex + 1,
-            index: cardIndex
+            ordinal: ordinal,
+            index: cardIndex,
+            countingValue: Math.min(ordinal, maxCountingValue)
         };
     };
 

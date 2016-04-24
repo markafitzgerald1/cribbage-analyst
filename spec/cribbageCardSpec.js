@@ -38,14 +38,20 @@
                         .not.toBeDefined();
                 });
 
-            it('returns ordinal=10 and index="T" for "T"',
+            it('returns ordinal=10, index="T" and countingValue=10 for "T"',
                 function() {
                     expect(cribbageCard.parseIndex('T'))
                         .toEqual({
                             ordinal: 10,
-                            index: 'T'
+                            index: 'T',
+                            countingValue: 10
                         });
                 });
+
+            it('returns countingValue=10 for "K"', function() {
+                expect(cribbageCard.parseIndex('K')
+                    .countingValue).toEqual(10);
+            });
         });
 
         describe('parseIndices method', function() {
