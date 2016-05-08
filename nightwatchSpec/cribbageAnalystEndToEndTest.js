@@ -12,7 +12,7 @@
 
     module.exports = {
         // jscs:disable jsDoc
-        'happy path': function(browser) {
+        'hand with fifteens and pairs points': function(browser) {
             // jscs:enable jsDoc
             browser
                 .url('http://localhost:8080/index.html')
@@ -20,7 +20,7 @@
                 .setValue('input[type=text]', 'Q7742A')
                 .pause(100)
                 .assert.containsText('#analyses',
-                    'Keep Q77A, discard 42 = 2 points.')
+                    'Keep Q77A, discard 42 = 4 points.')
                 .end();
         },
 

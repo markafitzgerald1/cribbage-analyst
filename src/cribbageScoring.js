@@ -12,12 +12,18 @@
      * @module cribbageScoring
      */
 
+    var pairPoints = 2,
+        fifteenCount = 15,
+        fifteenPoints = 2;
+
     /**
      * Calculate the number of points from pairs in the given cards hand.
      *
      * @function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
+     * @param {!{sum: function(Array)}} _ - an instance of the lodash module
+     * having at least a 'sum' function
      * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
      * having ordinal properties, indicating parseable indices, or being
      * undefined, indicating non-parseable indices
@@ -36,26 +42,69 @@
      *     [{ordinal: 1, index: 'A'}, {ordinal: 5, index: '5'},
      *      {ordinal: 9, index: '9'}, {ordinal: 13, index: 'K'}]);
      */
-    exports.pairsPoints = function(jsCombinatorics, cards) {
+    exports.pairsPoints = function(jsCombinatorics, _, cards) {
         if (cards.length < 2) {
             return 0;
         }
 
-        return jsCombinatorics.combination(cards, 2).map(function(pair) {
+        return _.sum(jsCombinatorics.combination(cards, 2).map(function(
+            pair) {
             if (!pair[0].ordinal || !pair[1].ordinal) {
                 return 0;
             }
-            return pair[0].ordinal === pair[1].ordinal ? 2 : 0;
-        }).reduce(function(previousReduceValue, currentArrayValue) {
-            return previousReduceValue + currentArrayValue;
-        });
+            return pair[0].ordinal === pair[1].ordinal ?
+                pairPoints : 0;
+        }));
     };
 
     /**
      * Calculate the number of points from fifteens in the given cards hand.
      *
      * @function
+     * @param {!{power: function(Array)}} jsCombinatorics - an instance of the
+     * js-combinatorics module having at least a 'power' function
+     * @param {!{sum: function(Array)}} _ - an instance of the lodash module
+     * having at least a 'sum' function
+     * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
+     * having ordinal properties, indicating parseable indices, or being
+     * undefined, indicating non-parseable indices
+     * @returns {!number} fifteensPoints - number of points from fifteens in
+     * hand
+     * @example
+     * // returns 4
+     * cribbageScoring.fifteensPoints(
+     *     [{ordinal: 6}, {ordinal: 9}, {ordinal: 9}]);
      */
-    exports.fifteensPoints = function() {
+    exports.fifteensPoints = function(jsCombinatorics, _, cards) {
+        return _.sum(jsCombinatorics.power(cards).map(function(
+            cardsSubset) {
+            return _(cardsSubset).map('countingValue').sum() ===
+                fifteenCount ? fifteenPoints : 0;
+        }));
+    };
+
+    /**
+     * Calculate the number of points from pairs and fifteens combined in the
+     * given cards hand.
+     *
+     * @function
+     * @param {!{combination: function(Array), power: function(Array)}} jsCombinatorics
+     * - an instance of the js-combinatorics module having at
+     * least a 'combination' function and a 'power' function
+     * @param {!{sum: function(Array)}} _ - an instance of the lodash module
+     * having at least a 'sum' function
+     * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
+     * having ordinal properties, indicating parseable indices, or being
+     * undefined, indicating non-parseable indices
+     * @returns {!number} pairsAndFifteensPoints - number of points from pairs
+     * and fifteens combined in hand
+     * @example
+     * // returns 4
+     * cribbageScoring.pairsAndFifteensPoints(
+     *     [{ordinal: 7}, {ordinal: 7}, {ordinal: 1}]);
+     */
+    exports.pairsAndFifteensPoints = function(jsCombinatorics, _, cards) {
+        return exports.pairsPoints(jsCombinatorics, _, cards) + exports
+            .fifteensPoints(jsCombinatorics, _, cards);
     };
 }());

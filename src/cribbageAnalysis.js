@@ -32,12 +32,12 @@
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
      * @param {!{xor: function(Array, Array)}} _ - an instance of the lodash
-     * module having at least a 'xor' function
+     * module having at least an 'xor' function
      * @param {!Array<{ordinal: number}>} cards - zero or more objects each
      * having an ordinal property
-     * @param {!function(!{combination: function(Array)}, !Array)} calculateInHandPoints
-     * - a function which uses jsCombinatorics to calculate the number of
-     * in-hand points in a given {Array} of cards.
+     * @param {!function(!{combination: function(Array)}, !{_: function},
+     * !Array)} calculateInHandPoints - a function which uses jsCombinatorics
+     * to calculate the number of in-hand points in a given {Array} of cards.
      * @returns {!Array<{keptCards: !Array<{ordinal: number}>,
      * discardedCards: !Array<{ordinal: number}>, points: !number}>}
      * discardOptionsWithInHandPoints - objects each containing the number of
@@ -58,14 +58,15 @@
         }
         if (cards.length < keptHandSize) {
             return [createDiscardOptionWithInHandPoints(cards, [],
-                calculateInHandPoints(jsCombinatorics, cards))];
+                calculateInHandPoints(jsCombinatorics, _, cards)
+            )];
         }
 
         return jsCombinatorics.combination(cards, keptHandSize).map(
             function(keptCards) {
                 return createDiscardOptionWithInHandPoints(
                     keptCards, _.xor(cards, keptCards),
-                    calculateInHandPoints(jsCombinatorics,
+                    calculateInHandPoints(jsCombinatorics, _,
                         keptCards));
             });
     };

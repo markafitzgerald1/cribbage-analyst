@@ -9,7 +9,8 @@
 
     var cribbageScoring = require('../src/cribbageScoring'),
         cribbageCard = require('../src/cribbageCard.js'),
-        jsCombinatorics = require('js-combinatorics');
+        jsCombinatorics = require('js-combinatorics'),
+        _ = require('lodash');
 
     describe('pairsPoints method', function() {
         var jsCombinatoricsSpy;
@@ -31,7 +32,7 @@
 
         it('returns 0 for an empty array of cards', function() {
             expect(cribbageScoring.pairsPoints(
-                jsCombinatoricsSpy, [])).
+                jsCombinatoricsSpy, _, [])).
             toEqual(0);
         });
 
@@ -42,7 +43,7 @@
                 var cards = cribbageCard.parseIndices('A2345');
                 spyOn(jsCombinatoricsSpy, 'combination').and.callThrough();
                 cribbageScoring.pairsPoints(jsCombinatoricsSpy,
-                    cards);
+                    _, cards);
                 expect(jsCombinatoricsSpy.combination).toHaveBeenCalledWith(
                     cards, 2);
             });
@@ -66,7 +67,7 @@
                         }]
                     ]);
                 expect(cribbageScoring.pairsPoints(
-                    jsCombinatoricsSpy,
+                    jsCombinatoricsSpy, _,
                     fakeCards)).toEqual(0);
             });
 
@@ -94,7 +95,7 @@
                         }]
                     ]);
                 expect(cribbageScoring.pairsPoints(
-                    jsCombinatoricsSpy,
+                    jsCombinatoricsSpy, _,
                     fakeCards)).toEqual(2);
             });
 
@@ -127,20 +128,20 @@
                         }]
                     ]);
                 expect(cribbageScoring.pairsPoints(
-                    jsCombinatoricsSpy,
+                    jsCombinatoricsSpy, _,
                     fakeCards)).toEqual(8);
             });
 
         it('returns 0 for a known index and an unknown index',
             function() {
                 expect(cribbageScoring.pairsPoints(
-                    jsCombinatorics, cribbageCard.parseIndices(
+                    jsCombinatorics, _, cribbageCard.parseIndices(
                         'AX'))).toEqual(0);
             });
 
         it('returns 0 for two unknown indices', function() {
             expect(cribbageScoring.pairsPoints(
-                jsCombinatorics, cribbageCard.parseIndices(
+                jsCombinatorics, _, cribbageCard.parseIndices(
                     'XY'))).toEqual(0);
         });
     });
@@ -149,9 +150,11 @@
         it('is defined', function() {
             expect(cribbageScoring.fifteensPoints).toBeDefined();
         });
+    });
 
-        it('returns undefined', function() {
-            expect(cribbageScoring.fifteensPoints()).not.toBeDefined();
+    describe('pairsAndFifteensPoints method', function() {
+        it('is defined', function() {
+            expect(cribbageScoring.pairsAndFifteensPoints).toBeDefined();
         });
     });
 }());

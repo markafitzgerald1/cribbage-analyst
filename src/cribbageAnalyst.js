@@ -70,7 +70,8 @@
                         jsCombinatorics, _,
                         cribbageCard.parseIndices(
                             this.cardIndices),
-                        cribbageScoring.pairsPoints);
+                        cribbageScoring.pairsAndFifteensPoints
+                    );
                 }
             }
         });

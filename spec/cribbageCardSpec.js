@@ -38,7 +38,8 @@
                         .not.toBeDefined();
                 });
 
-            it('returns ordinal=10, index="T" and countingValue=10 for "T"',
+            it(
+                'returns ordinal=10, index="T" and countingValue=10 for "T"',
                 function() {
                     expect(cribbageCard.parseIndex('T'))
                         .toEqual({
@@ -63,23 +64,20 @@
                 'returns an empty array for the empty string',
                 function() {
                     expect(cribbageCard.parseIndices('')
-                            .length)
-                        .toEqual(0);
+                        .length).toEqual(0);
                 });
 
             it('returns an array of one object for "3"',
                 function() {
                     expect(cribbageCard.parseIndices(
-                            '3').length)
-                        .toEqual(1);
+                        '3').length).toEqual(1);
                 });
 
             it(
                 'returns an array of three objects for "5J9"',
                 function() {
                     expect(cribbageCard.parseIndices(
-                            '5J9').length)
-                        .toEqual(3);
+                        '5J9').length).toEqual(3);
                 });
 
             it(
@@ -94,8 +92,7 @@
 
             it('returns the empty array for "', function() {
                 expect(cribbageCard.parseIndices(''))
-                    .toEqual(
-                        []);
+                    .toEqual([]);
             });
 
             it(
@@ -110,8 +107,7 @@
                 'character',
                 function() {
                     expect(cribbageCard.parseIndices(
-                            'A2?45')[3])
-                        .toBeDefined();
+                        'A2?45')[3]).toBeDefined();
                 });
         });
     });
