@@ -16,7 +16,7 @@
         jsCombinatorics = require('js-combinatorics'),
         cribbageScoring = require('../src/cribbageScoring.js'),
         cribbageCard = require('../src/cribbageCard'),
-        _ = require('lodash'),
+        lodash = require('lodash'),
         Vue = require('vue');
 
     /**
@@ -67,10 +67,9 @@
                  */
                 analyses: function() {
                     return cribbageAnalysis.inHandPointsPerDiscardOption(
-                        jsCombinatorics, _,
-                        cribbageCard.parseIndices(
-                            this.cardIndices),
-                        cribbageScoring.pairsAndFifteensPoints
+                        lodash, jsCombinatorics,
+                        cribbageCard.parseIndices(this.cardIndices),
+                        cribbageScoring.pairsFifteensAndRunsPoints
                     );
                 }
             }

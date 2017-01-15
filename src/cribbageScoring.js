@@ -14,16 +14,17 @@
 
     var pairPoints = 2,
         fifteenCount = 15,
-        fifteenPoints = 2;
+        fifteenPoints = 2,
+        minRunLength = 3;
 
     /**
      * Calculate the number of points from pairs in the given cards hand.
      *
      * @function
+     * @param {!{sum: function(Array)}} lodash - an instance of the lodash
+     * module having at least a 'sum' function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
-     * @param {!{sum: function(Array)}} _ - an instance of the lodash module
-     * having at least a 'sum' function
      * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
      * having ordinal properties, indicating parseable indices, or being
      * undefined, indicating non-parseable indices
@@ -42,29 +43,30 @@
      *     [{ordinal: 1, index: 'A'}, {ordinal: 5, index: '5'},
      *      {ordinal: 9, index: '9'}, {ordinal: 13, index: 'K'}]);
      */
-    exports.pairsPoints = function(jsCombinatorics, _, cards) {
+    exports.pairsPoints = function(lodash, jsCombinatorics, cards) {
         if (cards.length < 2) {
             return 0;
         }
 
-        return _.sum(jsCombinatorics.combination(cards, 2).map(function(
-            pair) {
-            if (!pair[0].ordinal || !pair[1].ordinal) {
-                return 0;
-            }
-            return pair[0].ordinal === pair[1].ordinal ?
-                pairPoints : 0;
-        }));
+        return lodash.sum(jsCombinatorics.combination(cards, 2).map(
+            function(
+                pair) {
+                if (!pair[0].ordinal || !pair[1].ordinal) {
+                    return 0;
+                }
+                return pair[0].ordinal === pair[1].ordinal ?
+                    pairPoints : 0;
+            }));
     };
 
     /**
      * Calculate the number of points from fifteens in the given cards hand.
      *
      * @function
+     * @param {!{sum: function(Array)}} lodash - an instance of the lodash
+     * module having at least a 'sum' function
      * @param {!{power: function(Array)}} jsCombinatorics - an instance of the
      * js-combinatorics module having at least a 'power' function
-     * @param {!{sum: function(Array)}} _ - an instance of the lodash module
-     * having at least a 'sum' function
      * @param {!Array<{countingValue: !number}>} cards - zero or more objects
      * either having countingValue properties, indicating parseable indices, or
      * being undefined, indicating non-parseable indices
@@ -75,36 +77,84 @@
      * cribbageScoring.fifteensPoints(
      *     [{countingValue: 6}, {countingValue: 9}, {countingValue: 9}]);
      */
-    exports.fifteensPoints = function(jsCombinatorics, _, cards) {
-        return _.sum(jsCombinatorics.power(cards).map(function(
+    exports.fifteensPoints = function(lodash, jsCombinatorics, cards) {
+        return lodash.sum(jsCombinatorics.power(cards).map(function(
             cardsSubset) {
-            return _(cardsSubset).map('countingValue').sum() ===
+            return lodash(cardsSubset).map('countingValue')
+                .sum() ===
                 fifteenCount ? fifteenPoints : 0;
         }));
     };
 
     /**
-     * Calculate the number of points from pairs and fifteens combined in the
-     * given cards hand.
+     * Calculate the number of points from runs in the given hand of cards.
      *
      * @function
-     * @param {!{combination: function(Array), power: function(Array)}} jsCombinatorics
-     * - an instance of the js-combinatorics module having at
-     * least a 'combination' function and a 'power' function
-     * @param {!{sum: function(Array)}} _ - an instance of the lodash module
-     * having at least a 'sum' function
+     * @param {!{map: function(String)}} lodash - an instance of the lodash
+     * module having at least 'map', 'sortBy', 'zipWith', 'filter' and 'sum'
+     * functions
+     * @param {!{power: function(Array)}} jsCombinatorics - an instance of the
+     * js-combinatorics module having at least a 'power' function
      * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
      * having ordinal properties, indicating parseable indices, or being
      * undefined, indicating non-parseable indices
-     * @returns {!number} pairsAndFifteensPoints - number of points from pairs
-     * and fifteens combined in hand
-     * @example
-     * // returns 4
-     * cribbageScoring.pairsAndFifteensPoints(
-     *     [{ordinal: 7}, {ordinal: 7}, {ordinal: 1}]);
+     * @returns {!number} runsPoints - number of points from runs in hand
      */
-    exports.pairsAndFifteensPoints = function(jsCombinatorics, _, cards) {
-        return exports.pairsPoints(jsCombinatorics, _, cards) + exports
-            .fifteensPoints(jsCombinatorics, _, cards);
+    exports.runsPoints = function(lodash, jsCombinatorics, cards) {
+        var individialRunsPoints = jsCombinatorics.power(cards).filter(
+                function(cardsSubset) {
+                    return cardsSubset.length >= minRunLength;
+                }).map(function(cardsSubset) {
+                return lodash(cardsSubset).map('ordinal').value();
+            }).map(function(cardOrdinalsSubset) {
+                return lodash(cardOrdinalsSubset).sortBy().value();
+            }).map(function(sortedCardOrdinalsSubset) {
+                return lodash.zipWith(sortedCardOrdinalsSubset.slice(
+                    0, -1), sortedCardOrdinalsSubset.slice(
+                    1), function(lowerOrdinal,
+                    higherOrdinal) {
+                    return higherOrdinal - lowerOrdinal;
+                });
+            }).filter(function(sortedCardOrdinalsSubsetDeltas) {
+                return sortedCardOrdinalsSubsetDeltas.every(
+                    function(delta) {
+                        return delta === 1;
+                    });
+            }).map(function(sortedCardOrdinalsSubsetDeltas) {
+                return sortedCardOrdinalsSubsetDeltas.length + 1;
+            }),
+            longestRunPoints = lodash.max(individialRunsPoints);
+
+        return lodash(individialRunsPoints).filter(function(
+            individialRunPoints) {
+            return individialRunPoints === longestRunPoints;
+        }).sum();
+    };
+
+    /**
+     * Calculate the number of points from pairs, fifteens and runs combined in
+     * the given cards hand.
+     *
+     * @param {!{sum: function(Array)}} lodash - an instance of the lodash
+     * module having at least a 'sum' function
+     * @function
+     * @param {!{combination: function(Array), power: function(Array)}} jsCombinatorics
+     * - an instance of the js-combinatorics module having at least a
+     * 'combination' function and a 'power' function
+     * @param {!Array<{ordinal: !number}>} cards - zero or more objects either
+     * having ordinal properties, indicating parseable indices, or being
+     * undefined, indicating non-parseable indices
+     * @returns {!number} pairsFifteensAndRunsPoints - number of points from
+     * pairs, fifteens and runs combined in hand
+     * @example
+     * // returns 12
+     * cribbageScoring.pairsFifteensAndRunsPoints(
+     *     [{ordinal: 6}, {ordinal: 5}, {ordinal: 4}, {ordinal: 4}]);
+     */
+    exports.pairsFifteensAndRunsPoints = function(lodash, jsCombinatorics,
+        cards) {
+        return exports.pairsPoints(lodash, jsCombinatorics, cards) +
+            exports.fifteensPoints(lodash, jsCombinatorics, cards) +
+            exports.runsPoints(lodash, jsCombinatorics, cards);
     };
 }());

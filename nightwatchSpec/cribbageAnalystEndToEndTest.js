@@ -62,6 +62,32 @@
                 .assert.containsText('#analyses',
                     'Keep K774, discard nothing = 2 points.')
                 .end();
+        },
+
+        // jscs:disable jsDoc
+        'hand with just a 4-run': function(browser) {
+            // jscs:enable jsDoc
+            browser
+                .url('http://localhost:8080/index.html')
+                .waitForElementVisible('body', 1000)
+                .setValue('input[type=text]', 'A289TJ')
+                .pause(100)
+                .assert.containsText('#analyses',
+                    'Keep 89TJ, discard A2 = 4 points.')
+                .end();
+        },
+
+        // jscs:disable jsDoc
+        'hand with pairs, fifteens and runs points': function(browser) {
+            // jscs:enable jsDoc
+            browser
+                .url('http://localhost:8080/index.html')
+                .waitForElementVisible('body', 1000)
+                .setValue('input[type=text]', '8876KQ')
+                .pause(100)
+                .assert.containsText('#analyses',
+                    'Keep 8876, discard KQ = 12 points.')
+                .end();
         }
     };
 }());

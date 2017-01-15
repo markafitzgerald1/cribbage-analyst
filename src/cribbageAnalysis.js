@@ -29,15 +29,15 @@
      * player could discard cards to the crib from the given hand.
      *
      * @function
+     * @param {!{xor: function(Array, Array)}} lodash - an instance of the lodash
+     * module having at least an 'xor' function
      * @param {!{combination: function(Array)}} jsCombinatorics - an instance
      * of the js-combinatorics module having at least a 'combination' function
-     * @param {!{xor: function(Array, Array)}} _ - an instance of the lodash
-     * module having at least an 'xor' function
      * @param {!Array<{ordinal: number}>} cards - zero or more objects each
      * having an ordinal property
-     * @param {!function(!{combination: function(Array)}, !{_: function},
-     * !Array)} calculateInHandPoints - a function which uses jsCombinatorics
-     * to calculate the number of in-hand points in a given {Array} of cards.
+     * @param {!function(!{lodash: function}, !{combination: function(Array)},
+     * !Array)} calculateInHandPoints - a function which uses jsCombinatorics to
+     * calculate the number of in-hand points in a given {Array} of cards.
      * @returns {!Array<{keptCards: !Array<{ordinal: number}>,
      * discardedCards: !Array<{ordinal: number}>, points: !number}>}
      * discardOptionsWithInHandPoints - objects each containing the number of
@@ -45,29 +45,29 @@
      * @example
      * // returns [{ keptCards: [{ordinal: 1}, {ordinal: 3}, {ordinal: 1},
      * // {ordinal: 10}], discardedCards: [], points: 2}]
-     * cribbageAnalysis.inHandPointsPerDiscardOption(jsCombinatorics, _,
+     * cribbageAnalysis.inHandPointsPerDiscardOption(lodash, jsCombinatorics,
      *     [{ordinal: 1}, {ordinal: 3}, {ordinal: 1}, {ordinal: 10}],
      *     cribbageScoring.pairsPoints);
      */
-    exports.inHandPointsPerDiscardOption = function(jsCombinatorics, _,
-        cards,
-        calculateInHandPoints) {
+    exports.inHandPointsPerDiscardOption = function(lodash, jsCombinatorics,
+        cards, calculateInHandPoints) {
         var keptHandSize = 4;
         if (cards.length === 0) {
             return [];
         }
         if (cards.length < keptHandSize) {
             return [createDiscardOptionWithInHandPoints(cards, [],
-                calculateInHandPoints(jsCombinatorics, _, cards)
+                calculateInHandPoints(lodash, jsCombinatorics,
+                    cards)
             )];
         }
 
         return jsCombinatorics.combination(cards, keptHandSize).map(
             function(keptCards) {
                 return createDiscardOptionWithInHandPoints(
-                    keptCards, _.xor(cards, keptCards),
-                    calculateInHandPoints(jsCombinatorics, _,
-                        keptCards));
+                    keptCards, lodash.xor(cards, keptCards),
+                    calculateInHandPoints(lodash,
+                        jsCombinatorics, keptCards));
             });
     };
 }());

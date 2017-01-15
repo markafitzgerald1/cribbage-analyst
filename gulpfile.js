@@ -54,7 +54,9 @@
 
     gulp.task(testTaskName, [lintTaskName], function() {
         return gulp.src(specs)
-            .pipe(jasmine());
+            .pipe(jasmine({
+                includeStackTrace: true
+            }));
     });
 
     gulp.task(jsdocTaskName, [testTaskName], function() {
