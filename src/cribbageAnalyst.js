@@ -66,7 +66,7 @@
                  * in-hand points for a possible hand discard option.
                  */
                 analyses: function() {
-                    return cribbageAnalysis.inHandPointsPerDiscardOption(
+                    return cribbageAnalysis.expectedHandPointsPerDiscardOption(
                         lodash, jsCombinatorics,
                         cribbageCard.parseIndices(this.cardIndices),
                         cribbageScoring.pairsFifteensAndRunsPoints

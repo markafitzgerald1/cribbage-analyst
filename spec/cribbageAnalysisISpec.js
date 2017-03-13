@@ -13,10 +13,10 @@
         cribbageCard = require('../src/cribbageCard'),
         lodash = require('lodash');
 
-    describe('inHandPointsPerDiscardOption method', function() {
+    describe('expectedHandPointsPerDiscardOption method', function() {
         it('returns an empty array if no cards handed in',
             function() {
-                expect(cribbageAnalysis.inHandPointsPerDiscardOption(
+                expect(cribbageAnalysis.expectedHandPointsPerDiscardOption(
                     lodash, jsCombinatorics, [],
                     cribbageScoring.pairsPoints)).toEqual([]);
             });
@@ -27,7 +27,7 @@
                 var cards = [{
                     ordinal: 3
                 }];
-                expect(cribbageAnalysis.inHandPointsPerDiscardOption(
+                expect(cribbageAnalysis.expectedHandPointsPerDiscardOption(
                     lodash, jsCombinatorics, cards,
                     cribbageScoring.pairsPoints)).toEqual([{
                     keptCards: cards,
@@ -45,7 +45,7 @@
                 }, {
                     ordinal: 3
                 }];
-                expect(cribbageAnalysis.inHandPointsPerDiscardOption(
+                expect(cribbageAnalysis.expectedHandPointsPerDiscardOption(
                     lodash, jsCombinatorics, cards,
                     cribbageScoring.pairsPoints)).toEqual([{
                     keptCards: cards,
@@ -58,7 +58,7 @@
             'returns 5 distinct analyses for a 5-card hand',
             function() {
                 var cards = cribbageCard.parseIndices('A74J7');
-                expect(cribbageAnalysis.inHandPointsPerDiscardOption(
+                expect(cribbageAnalysis.expectedHandPointsPerDiscardOption(
                     lodash, jsCombinatorics, cards,
                     cribbageScoring.pairsPoints).length).toEqual(
                     5);
@@ -68,44 +68,45 @@
             'calculates all expected discard analyses for a 5-card hand',
             function() {
                 var cards = cribbageCard.parseIndices('A74J7');
-                expect(lodash.xorWith(cribbageAnalysis.inHandPointsPerDiscardOption(
-                    lodash, jsCombinatorics, cards,
-                    cribbageScoring.pairsPoints), [{
-                    keptCards: cribbageCard.parseIndices(
-                        'A74J'),
-                    discardedCards: cribbageCard
-                        .parseIndices(
-                            '7'),
-                    points: 0
-                }, {
-                    keptCards: cribbageCard.parseIndices(
-                        'A747'),
-                    discardedCards: cribbageCard
-                        .parseIndices(
-                            'J'),
-                    points: 2
-                }, {
-                    keptCards: cribbageCard.parseIndices(
-                        'A7J7'),
-                    discardedCards: cribbageCard
-                        .parseIndices(
-                            '4'),
-                    points: 2
-                }, {
-                    keptCards: cribbageCard.parseIndices(
-                        'A4J7'),
-                    discardedCards: cribbageCard
-                        .parseIndices(
-                            '7'),
-                    points: 0
-                }, {
-                    keptCards: cribbageCard.parseIndices(
-                        '74J7'),
-                    discardedCards: cribbageCard
-                        .parseIndices(
-                            'A'),
-                    points: 2
-                }], lodash.isEqual)).toEqual(
+                expect(lodash.xorWith(
+                    cribbageAnalysis.expectedHandPointsPerDiscardOption(
+                        lodash, jsCombinatorics, cards,
+                        cribbageScoring.pairsPoints), [{
+                        keptCards: cribbageCard.parseIndices(
+                            'A74J'),
+                        discardedCards: cribbageCard
+                            .parseIndices(
+                                '7'),
+                        points: 0
+                    }, {
+                        keptCards: cribbageCard.parseIndices(
+                            'A747'),
+                        discardedCards: cribbageCard
+                            .parseIndices(
+                                'J'),
+                        points: 2
+                    }, {
+                        keptCards: cribbageCard.parseIndices(
+                            'A7J7'),
+                        discardedCards: cribbageCard
+                            .parseIndices(
+                                '4'),
+                        points: 2
+                    }, {
+                        keptCards: cribbageCard.parseIndices(
+                            'A4J7'),
+                        discardedCards: cribbageCard
+                            .parseIndices(
+                                '7'),
+                        points: 0
+                    }, {
+                        keptCards: cribbageCard.parseIndices(
+                            '74J7'),
+                        discardedCards: cribbageCard
+                            .parseIndices(
+                                'A'),
+                        points: 2
+                    }], lodash.isEqual)).toEqual(
                     []);
             });
 
@@ -113,7 +114,8 @@
             'calculates the expected pairs points for "KQJJJK"',
             function() {
                 var cards = cribbageCard.parseIndices('KQJJJK');
-                expect(lodash.map(cribbageAnalysis.inHandPointsPerDiscardOption(
+                expect(lodash.map(
+                    cribbageAnalysis.expectedHandPointsPerDiscardOption(
                         lodash, jsCombinatorics, cards,
                         cribbageScoring.pairsPoints),
                     'points').sort()).toEqual([2, 2, 2, 2,
