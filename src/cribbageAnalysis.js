@@ -36,8 +36,9 @@
      * @param {!Array<{ordinal: number}>} cards - zero or more objects each
      * having an ordinal property
      * @param {!function(!{lodash: function}, !{combination: function(Array)},
-     * !Array)} calculateHandPoints - a function which uses jsCombinatorics to
-     * calculate the number of in-hand points in a given {Array} of cards.
+     * !Array)} calculateExpectedHandPoints - a function which uses
+     * jsCombinatorics to calculate the expected number of in-hand points in a
+     * given {Array} of cards.
      * @returns {!Array<{keptCards: !Array<{ordinal: number}>,
      * discardedCards: !Array<{ordinal: number}>, points: !number}>}
      * discardOptionsWithInHandPoints - objects each containing the number of
@@ -51,15 +52,15 @@
      */
     exports.expectedHandPointsPerDiscardOption = function(lodash,
         jsCombinatorics,
-        cards, calculateHandPoints) {
+        cards, calculateExpectedHandPoints) {
         var keptHandSize = 4;
         if (cards.length === 0) {
             return [];
         }
         if (cards.length < keptHandSize) {
             return [createDiscardOptionWithInHandPoints(cards, [],
-                calculateHandPoints(lodash, jsCombinatorics,
-                    cards)
+                calculateExpectedHandPoints(lodash,
+                    jsCombinatorics, cards)
             )];
         }
 
@@ -67,7 +68,7 @@
             function(keptCards) {
                 return createDiscardOptionWithInHandPoints(
                     keptCards, lodash.xor(cards, keptCards),
-                    calculateHandPoints(lodash,
+                    calculateExpectedHandPoints(lodash,
                         jsCombinatorics, keptCards));
             });
     };
