@@ -134,5 +134,16 @@
             .pipe(cover.enforce());
     });
 
+    gulp.task(coverageTaskName + continuousTaskNameSuffix, [
+            coverageTaskName
+        ],
+        function() {
+            gulp.watch([htmlSource, sources, specs, nightwatchSpecs,
+                jshintrc, jscsrc
+            ], [
+                coverageTaskName
+            ]);
+        });
+
     gulp.task('default', [coverageTaskName]);
 }());
