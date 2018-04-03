@@ -42,31 +42,32 @@
         it(
             'hands single discarded card to calculateExpectedHandPoints',
             function() {
-                var cards = cribbageCard.parseIndices('A2345');
+                var cards = cribbageCard.parseIndices('A2345'),
+                    expectFakeCalculateExpectedHandPointsCall =
+                    // jscs:disable jsDoc
+                    function(keptCardIndices,
+                        discardedCardIndices) {
+                        // jscs:enable jsDoc
+                        expect(spyParent.fakeCalculateExpectedHandPoints)
+                            .toHaveBeenCalledWith(lodash,
+                                jsCombinatorics, cribbageCard.parseIndices(
+                                    keptCardIndices),
+                                cribbageCard.parseIndices(
+                                    discardedCardIndices));
+                    };
                 cribbageAnalysis.expectedHandPointsPerDiscardOption(
                     lodash, jsCombinatorics, cards,
                     spyParent.fakeCalculateExpectedHandPoints
                 );
-                expect(spyParent.fakeCalculateExpectedHandPoints)
-                    .toHaveBeenCalledWith(lodash,
-                        jsCombinatorics, cribbageCard.parseIndices(
-                            'A235'), cribbageCard.parseIndices(
-                            '4'));
-                expect(spyParent.fakeCalculateExpectedHandPoints)
-                    .toHaveBeenCalledWith(lodash,
-                        jsCombinatorics, cribbageCard.parseIndices(
-                            'A245'), cribbageCard.parseIndices(
-                            '3'));
-                expect(spyParent.fakeCalculateExpectedHandPoints)
-                    .toHaveBeenCalledWith(lodash,
-                        jsCombinatorics, cribbageCard.parseIndices(
-                            'A345'), cribbageCard.parseIndices(
-                            '2'));
-                expect(spyParent.fakeCalculateExpectedHandPoints)
-                    .toHaveBeenCalledWith(lodash,
-                        jsCombinatorics, cribbageCard.parseIndices(
-                            '2345'), cribbageCard.parseIndices(
-                            'A'));
+
+                expectFakeCalculateExpectedHandPointsCall(
+                    'A235', '4');
+                expectFakeCalculateExpectedHandPointsCall(
+                    'A245', '3');
+                expectFakeCalculateExpectedHandPointsCall(
+                    'A345', '2');
+                expectFakeCalculateExpectedHandPointsCall(
+                    '2345', 'A');
             });
 
         it(
