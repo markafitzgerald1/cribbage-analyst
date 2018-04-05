@@ -32,7 +32,7 @@
     "gulp-coverage": "^0.3.38",
     "gulp-jasmine": "^2.2.1",
     "gulp-jscs": "^3.0.2",
-    "gulp-jsdoc": "^0.1.5",
+    "gulp-jsdoc3": "^2.0.0",
     "gulp-jshint": "^2.0.0",
     "gulp-nightwatch": "^0.2.9",
     "gulp-util": "^3.0.7",

@@ -6,7 +6,7 @@
     var gulp = require('gulp'),
         del = require('del'),
         jshint = require('gulp-jshint'),
-        jsdoc = require('gulp-jsdoc'),
+        jsdoc3 = require('gulp-jsdoc3'),
         jasmine = require('gulp-jasmine'),
         jscs = require('gulp-jscs'),
         webpackStream = require('webpack-stream'),
@@ -61,7 +61,7 @@
 
     gulp.task(jsdocTaskName, [testTaskName], function() {
         return gulp.src(sources)
-            .pipe(jsdoc('./jsDoc'));
+            .pipe(jsdoc3());
     });
 
     gulp.task(codestyleTaskName, [jsdocTaskName], function() {
