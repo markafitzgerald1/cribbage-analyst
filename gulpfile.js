@@ -19,6 +19,7 @@
         testTaskName = 'test',
         jsdocTaskName = 'jsdoc',
         webpackTaskName = 'webpack',
+        copyTaskName = 'copy',
         coverageTaskName = 'coverage',
         startServerTaskName = 'startServer',
         nightwatchTaskName = 'nightwatch',
@@ -30,14 +31,16 @@
         nightwatchSpecs = 'nightwatchSpec/*.js',
         gulpfile = 'gulpfile.js',
         jshintrc = '.jshintrc',
-        jscsrc = '.jscsrc';
+        jscsrc = '.jscsrc',
+        distFolder = 'dist/',
+        staticSourceFiles = ['index.html'];
 
     gulp.task(cleanTaskName, function() {
         return del([
             // JSDoc
             'jsDoc/',
             // webpack bundles
-            'dist/',
+            distFolder,
             // nightwatch output
             'e2e_tests_output', 'e2e_test_screenshots',
             // coverageTaskName files
@@ -83,7 +86,7 @@
                     library: '[name]'
                 }
             }))
-            .pipe(gulp.dest('dist/'));
+            .pipe(gulp.dest(distFolder));
     });
 
     // the much cheaper of the two -continuous tasks
@@ -96,13 +99,19 @@
             ]);
         });
 
+    gulp.task(copyTaskName, [webpackTaskName], function() {
+        return gulp.src(staticSourceFiles).pipe(gulp.dest(distFolder));
+    });
+
     /* must be started in separate Gulp run in order for nightwatchTaskName to
      * pass. */
     gulp.task(startServerTaskName, function() {
-        connect.server();
+        connect.server({
+            root: distFolder
+        });
     });
 
-    gulp.task(nightwatchTaskName, [webpackTaskName], function() {
+    gulp.task(nightwatchTaskName, [copyTaskName], function() {
         return gulp.src('')
             .pipe(nightwatch({
                 configFile: 'spec/nightwatch.json'
