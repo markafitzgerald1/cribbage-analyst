@@ -13,6 +13,7 @@
         cover = require('gulp-coverage'),
         connect = require('gulp-connect'),
         nightwatch = require('gulp-nightwatch'),
+        ghPages = require('gulp-gh-pages'),
         cleanTaskName = 'clean',
         lintTaskName = 'lint',
         codestyleTaskName = 'codestyle',
@@ -23,6 +24,7 @@
         coverageTaskName = 'coverage',
         startServerTaskName = 'startServer',
         nightwatchTaskName = 'nightwatch',
+        deployTaskName = 'deploy',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
         htmlSource = 'index.html',
@@ -38,13 +40,15 @@
     gulp.task(cleanTaskName, function() {
         return del([
             // JSDoc
-            'jsDoc/',
+            'docs/',
             // webpack bundles
             distFolder,
             // nightwatch output
             'e2e_tests_output', 'e2e_test_screenshots',
             // coverageTaskName files
-            '.coverdata/', '.coverrun', 'coverage'
+            '.coverdata/', '.coverrun', 'coverage',
+            // site publication files
+            '.publish/'
         ]);
     });
 
@@ -154,5 +158,9 @@
             ]);
         });
 
-    gulp.task('default', [coverageTaskName]);
+    gulp.task(deployTaskName, [coverageTaskName], function() {
+        return gulp.src(distFolder + '**/*').pipe(ghPages());
+    });
+
+    gulp.task('default', [deployTaskName]);
 }());
