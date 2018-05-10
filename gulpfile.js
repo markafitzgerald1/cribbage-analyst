@@ -35,7 +35,7 @@
         jshintrc = '.jshintrc',
         jscsrc = '.jscsrc',
         distFolder = 'dist/',
-        staticSourceFiles = ['index.html'];
+        staticSourceFiles = ['index.html', 'index.css'];
 
     gulp.task(cleanTaskName, function() {
         return del([

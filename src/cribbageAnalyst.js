@@ -41,7 +41,8 @@
 
         Vue.component('card-list', {
             props: ['cards'],
-            template: '<span v-for="card in cards">{{card.index}}</span>'
+            template: '<span v-for="card in cards" class="card-index">{{card.index}}' +
+                '</span>'
         });
 
         Vue.config.debug = true;

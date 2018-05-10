@@ -16,6 +16,7 @@ dist/
 
 # Nightwatch.JS and Selenium output
 e2e_tests_output/
+e2e_test_screenshots/
 selenium-debug.log
 
 # gulp-gh-pages output
