@@ -165,5 +165,5 @@
         }));
     });
 
-    gulp.task('default', [deployTaskName]);
+    gulp.task('default', [coverageTaskName]);
 }());
