@@ -158,8 +158,11 @@
             ]);
         });
 
-    gulp.task(deployTaskName, [coverageTaskName], function() {
-        return gulp.src(distFolder + '**/*').pipe(ghPages());
+    gulp.task(deployTaskName, [webpackTaskName], function() {
+        return gulp.src(distFolder + '**/*').pipe(ghPages({
+            remoteUrl: 'https://' + process.env.GITHUB_TOKEN + '@github.com' +
+                '/markafitzgerald1/cribbage-analyst.git'
+        }));
     });
 
     gulp.task('default', [deployTaskName]);
