@@ -29,10 +29,11 @@
             props: ['analysis'],
             template: '<div class="analysis">' +
                 'Keep ' +
-                '<card-list v-bind:cards="analysis.keptCards">' +
+                '<card-list v-bind:cards="analysis.keptCards" class="card-indices">' +
                 '</card-list>, discard ' +
                 '<template v-if="analysis.discardedCards.length > 0">' +
-                '    <card-list v-bind:cards="analysis.discardedCards">' +
+                '    <card-list v-bind:cards="analysis.discardedCards"' +
+                '        class="card-indices">' +
                 '    </card-list>' +
                 '</template>' +
                 '<template v-else>nothing</template>' +
@@ -41,8 +42,7 @@
 
         Vue.component('card-list', {
             props: ['cards'],
-            template: '<span v-for="card in cards" class="card-index">{{card.index}}' +
-                '</span>'
+            template: '<span v-for="card in cards">{{card.index}}</span>'
         });
 
         Vue.config.debug = true;
