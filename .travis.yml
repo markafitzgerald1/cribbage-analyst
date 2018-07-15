@@ -4,6 +4,10 @@ node_js:
   - "8"
   - "6"
   - "4"
+addons:
+  chrome: stable
+sudo: required
 before_script:
   - node_modules/gulp/bin/gulp.js startServer &
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
 script: node_modules/gulp/bin/gulp.js deploy

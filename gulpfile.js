@@ -118,7 +118,7 @@
     gulp.task(nightwatchTaskName, [copyTaskName], function() {
         return gulp.src('')
             .pipe(nightwatch({
-                configFile: 'spec/nightwatch.json'
+                configFile: 'nightwatch.json'
             }));
     });
 
