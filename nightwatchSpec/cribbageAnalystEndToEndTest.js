@@ -12,7 +12,7 @@
         initialRenderTimeoutMilliseconds = 151,
         analysesSelector = '#analyses',
         firstAnalysisSelector = '.analysis:first-of-type',
-        analysisTimeoutMilliseconds = 208;
+        analysisTimeoutMilliseconds = 300;
 
     /* Create at least one e2e test verifying entry point + HTML with Vue.js
      * markup works as expected - at least for a happy path. */
