@@ -6,6 +6,7 @@ node_js:
   - "4"
 addons:
   chrome: stable
+sudo: required
 before_install:
   - node_modules/gulp/bin/gulp.js startServer &
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080 &
