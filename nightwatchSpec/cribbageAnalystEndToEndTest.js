@@ -8,7 +8,7 @@
     'use strict';
 
     const siteUrl = 'http://localhost:8080',
-        bodySelector = 'body',
+        inputSelector = 'input[type=text]',
         initialRenderTimeoutMilliseconds = 151,
         analysesSelector = '#analyses',
         firstAnalysisSelector = '.analysis:first-of-type',
@@ -23,8 +23,8 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(bodySelector, initialRenderTimeoutMilliseconds)
-                .setValue('input[type=text]', 'Q7742A')
+                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .setValue(inputSelector, 'Q7742A')
                 .waitForElementPresent(firstAnalysisSelector,
                     analysisTimeoutMilliseconds)
                 .assert.containsText('#analyses',
@@ -37,8 +37,8 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(bodySelector, initialRenderTimeoutMilliseconds)
-                .setValue('input[type=text]', 'A233XY')
+                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .setValue(inputSelector, 'A233XY')
                 .waitForElementPresent(firstAnalysisSelector,
                     analysisTimeoutMilliseconds)
                 .assert.containsText(analysesSelector,
@@ -51,8 +51,8 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(bodySelector, initialRenderTimeoutMilliseconds)
-                .setValue('input[type=text]', 'Q77772')
+                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .setValue(inputSelector, 'Q77772')
                 .waitForElementPresent(firstAnalysisSelector,
                     analysisTimeoutMilliseconds)
                 .assert.containsText(firstAnalysisSelector,
@@ -65,8 +65,8 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(bodySelector, initialRenderTimeoutMilliseconds)
-                .setValue('input[type=text]', 'K774')
+                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .setValue(inputSelector, 'K774')
                 .waitForElementPresent(firstAnalysisSelector,
                     analysisTimeoutMilliseconds)
                 .assert.containsText(analysesSelector,
@@ -79,8 +79,8 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(bodySelector, initialRenderTimeoutMilliseconds)
-                .setValue('input[type=text]', 'A289TJ')
+                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .setValue(inputSelector, 'A289TJ')
                 .waitForElementPresent(firstAnalysisSelector,
                     analysisTimeoutMilliseconds)
                 .assert.containsText(analysesSelector,
@@ -93,8 +93,8 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(bodySelector, initialRenderTimeoutMilliseconds)
-                .setValue('input[type=text]', '8876KQ')
+                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .setValue(inputSelector, '8876KQ')
                 .waitForElementPresent(firstAnalysisSelector,
                     analysisTimeoutMilliseconds)
                 .assert.containsText(analysesSelector,
