@@ -9,10 +9,10 @@
 
     const siteUrl = 'http://localhost:8080',
         inputSelector = 'input[type=text]',
-        initialRenderTimeoutMilliseconds = 151,
+        initialRenderTimeoutMilliseconds = 20000,
         analysesSelector = '#analyses',
         firstAnalysisSelector = '.analysis:first-of-type',
-        analysisTimeoutMilliseconds = 60000;
+        analysisTimeoutMilliseconds = 30000;
 
     /* Create at least one e2e test verifying entry point + HTML with Vue.js
      * markup works as expected - at least for a happy path. */
