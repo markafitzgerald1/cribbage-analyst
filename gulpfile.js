@@ -13,7 +13,7 @@
         cover = require('gulp-coverage'),
         connect = require('gulp-connect'),
         nightwatch = require('gulp-nightwatch'),
-        ghPages = require('gulp-gh-pages'),
+        ghPages = require('gh-pages'),
         cleanTaskName = 'clean',
         lintTaskName = 'lint',
         codestyleTaskName = 'codestyle',
@@ -159,10 +159,7 @@
         });
 
     gulp.task(deployTaskName, [coverageTaskName], function() {
-        return gulp.src(distFolder + '**/*').pipe(ghPages({
-            remoteUrl: 'https://' + process.env.GITHUB_TOKEN + '@github.com' +
-                '/markafitzgerald1/cribbage-analyst.git'
-        }));
+        return ghPages.publish(distFolder);
     });
 
     gulp.task('default', [coverageTaskName]);
