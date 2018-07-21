@@ -24,7 +24,9 @@
         coverageTaskName = 'coverage',
         startServerTaskName = 'startServer',
         nightwatchTaskName = 'nightwatch',
+        onlyDeployTaskName = 'onlyDeploy',
         deployTaskName = 'deploy',
+        defaultTaskName = 'default',
         continuousTaskNameSuffix = '-continuous',
         sources = 'src/*.js',
         htmlSource = 'index.html',
@@ -158,9 +160,11 @@
             ]);
         });
 
-    gulp.task(deployTaskName, [coverageTaskName], function() {
+    gulp.task(onlyDeployTaskName, [], function() {
         return ghPages.publish(distFolder);
     });
 
-    gulp.task('default', [coverageTaskName]);
+    gulp.task(deployTaskName, [coverageTaskName, onlyDeployTaskName]);
+
+    gulp.task(defaultTaskName, [coverageTaskName]);
 }());
