@@ -14,4 +14,12 @@ sudo: required
 before_script:
   - node_modules/gulp/bin/gulp.js startServer &
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
-script: node_modules/gulp/bin/gulp.js deploy
+script: node_modules/gulp/bin/gulp.js
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: "dist"
+  on:
+    branch: master
