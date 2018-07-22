@@ -14,4 +14,14 @@ sudo: required
 before_script:
   - node_modules/gulp/bin/gulp.js startServer &
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
-script: node_modules/gulp/bin/gulp.js deploy
+jobs:
+  include:
+    - stage: build
+      script: node_modules/gulp/bin/gulp.js
+    - stage: deploy
+      node_js: "8"
+      script: node_modules/gulp/bin/gulp.js onlyDeploy
+stages:
+  - build
+  - name: deploy
+    if: branch = master
