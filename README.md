@@ -2,8 +2,8 @@
 Two-player [cribbage](https://en.wikipedia.org/wiki/Cribbage) discard analysis tool.
 
 ## Installation
-* [install Node.JS LTS](https://nodejs.org/en/download/),
-* [clone this Git repository](https://help.github.com/articles/cloning-a-repository/), then
+* Install [Node.js 8 LTS](https://nodejs.org/en/download/), [Node.js 6 LTS](https://nodejs.org/en/download/releases/) or [Node.js 4](https://nodejs.org/en/download/releases/);
+* [clone this Git repository](https://help.github.com/articles/cloning-a-repository/); then
 * run `npm install` to download project operational and development dependencies.
 
 ## Execution
