@@ -3,12 +3,13 @@
   "version": "0.2.2",
   "description": "A cribbage discard and play analysis tool.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo No tests yet."
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/markafitzgerald1/cribbage-analyst.git"
+  },
+  "scripts": {
+    "lint": "jshint --config .jshintrc src && jshint --config .jshintrc.es6 spec nightwatchSpec",
+    "test": "echo No tests yet."
   },
   "keywords": [
     "cribbage",
