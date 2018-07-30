@@ -37,4 +37,4 @@ To test with Microsoft Edge on Windows 10 (real or
 To have the above project build steps always run and be verified to have run successfully before
 Git accepts a `git commit`:
 * copy `.git/hooks/pre-commit.sample` to `.git/hooks/pre-commit`, then
-* add one line to the end of `.git/hooks/pre-commit` which reads `node_modules/gulp/bin/gulp.js`.)
+* add one line to the end of `.git/hooks/pre-commit` which reads `node_modules/gulp/bin/gulp.js`.
