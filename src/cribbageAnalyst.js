@@ -27,7 +27,8 @@
     exports.initVue = function() {
         Vue.component('analysis', {
             props: ['analysis'],
-            template: '<div class="analysis">' +
+            template:
+                '<div class="analysis">' +
                 'Keep ' +
                 '<card-list v-bind:cards="analysis.keptCards" class="card-indices">' +
                 '</card-list>, discard ' +
@@ -68,7 +69,8 @@
                  */
                 analyses: function() {
                     return cribbageAnalysis.expectedHandPointsPerDiscardOption(
-                        lodash, jsCombinatorics,
+                        lodash,
+                        jsCombinatorics,
                         cribbageCard.parseIndices(this.cardIndices),
                         cribbageScoring.pairsFifteensAndRunsPoints
                     );
@@ -76,4 +78,4 @@
             }
         });
     };
-}());
+})();

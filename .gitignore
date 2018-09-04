@@ -4,8 +4,9 @@ coverage
 # Dependency directory
 node_modules/
 
-# JSDoc output directory
+# JSDoc output directories
 docs/gen/
+jsdoc/
 
 # gulp-coverage data files
 .coverdata/
@@ -21,3 +22,9 @@ selenium-debug.log
 
 # gulp-gh-pages output
 .publish/
+
+# npm crash logs
+npm-debug.log*
+
+# VS Code
+/.vscode/

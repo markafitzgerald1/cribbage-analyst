@@ -66,4 +66,4 @@
     exports.parseIndices = function(cardIndices) {
         return cardIndices.split('').map(exports.parseIndex);
     };
-}());
+})();

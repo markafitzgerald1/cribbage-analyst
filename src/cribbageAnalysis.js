@@ -13,9 +13,11 @@
      */
 
     // jscs:disable jsDoc
-    function createDiscardOptionWithInHandPoints(keptCards,
+    function createDiscardOptionWithInHandPoints(
+        keptCards,
         discardedCards,
-        points) {
+        points
+    ) {
         return {
             keptCards: keptCards,
             discardedCards: discardedCards,
@@ -50,28 +52,45 @@
      *     jsCombinatorics, [{ordinal: 1}, {ordinal: 3}, {ordinal: 1},
      *     {ordinal: 10}], cribbageScoring.pairsPoints);
      */
-    exports.expectedHandPointsPerDiscardOption = function(lodash,
+    exports.expectedHandPointsPerDiscardOption = function(
+        lodash,
         jsCombinatorics,
-        cards, calculateExpectedHandPoints) {
+        cards,
+        calculateExpectedHandPoints
+    ) {
         var keptHandSize = 4;
         if (cards.length === 0) {
             return [];
         }
         if (cards.length <= keptHandSize) {
-            return [createDiscardOptionWithInHandPoints(cards, [],
-                calculateExpectedHandPoints(lodash,
-                    jsCombinatorics, cards, [])
-            )];
+            return [
+                createDiscardOptionWithInHandPoints(
+                    cards,
+                    [],
+                    calculateExpectedHandPoints(
+                        lodash,
+                        jsCombinatorics,
+                        cards,
+                        []
+                    )
+                )
+            ];
         }
 
-        return jsCombinatorics.combination(cards, keptHandSize).map(
-            function(keptCards) {
+        return jsCombinatorics
+            .combination(cards, keptHandSize)
+            .map(function(keptCards) {
                 var discardedCards = lodash.xor(cards, keptCards);
                 return createDiscardOptionWithInHandPoints(
-                    keptCards, discardedCards,
-                    calculateExpectedHandPoints(lodash,
-                        jsCombinatorics, keptCards,
-                        discardedCards));
+                    keptCards,
+                    discardedCards,
+                    calculateExpectedHandPoints(
+                        lodash,
+                        jsCombinatorics,
+                        keptCards,
+                        discardedCards
+                    )
+                );
             });
     };
-}());
+})();

@@ -15,43 +15,32 @@
                 expect(cribbageCard.parseIndex).toBeDefined();
             });
 
-            it('returns ordinal=1 for "A"', function() {
-                expect(cribbageCard.parseIndex('A')
-                    .ordinal).toEqual(1);
+            it('"A" return value ordinal', function() {
+                expect(cribbageCard.parseIndex('A').ordinal).toEqual(1);
             });
 
-            it('returns ordinal=1 for "a"', function() {
-                expect(cribbageCard.parseIndex('a')
-                    .ordinal).toEqual(1);
+            it('"a" return value ordinal', function() {
+                expect(cribbageCard.parseIndex('a').ordinal).toEqual(1);
             });
 
-            it(
-                'returns ordinal=undefined for non card index "X"',
-                function() {
-                    expect(cribbageCard.parseIndex('X')
-                        .ordinal).not.toBeDefined();
-                });
+            it('"X" return value ordinal', function() {
+                expect(cribbageCard.parseIndex('X').ordinal).not.toBeDefined();
+            });
 
-            it('returns undefined for non card index "',
-                function() {
-                    expect(cribbageCard.parseIndex(''))
-                        .not.toBeDefined();
-                });
+            it('"" return value ordinal', function() {
+                expect(cribbageCard.parseIndex('')).not.toBeDefined();
+            });
 
-            it(
-                'returns ordinal=10, index="T" and countingValue=10 for "T"',
-                function() {
-                    expect(cribbageCard.parseIndex('T'))
-                        .toEqual({
-                            ordinal: 10,
-                            index: 'T',
-                            countingValue: 10
-                        });
+            it('"T" return value ordinal, index and countingValue', function() {
+                expect(cribbageCard.parseIndex('T')).toEqual({
+                    ordinal: 10,
+                    index: 'T',
+                    countingValue: 10
                 });
+            });
 
-            it('returns countingValue=10 for "K"', function() {
-                expect(cribbageCard.parseIndex('K')
-                    .countingValue).toEqual(10);
+            it('"K" return countingValue', function() {
+                expect(cribbageCard.parseIndex('K').countingValue).toEqual(10);
             });
         });
 
@@ -60,55 +49,39 @@
                 expect(cribbageCard.parseIndices).toBeDefined();
             });
 
-            it(
-                'returns an empty array for the empty string',
-                function() {
-                    expect(cribbageCard.parseIndices('')
-                        .length).toEqual(0);
-                });
-
-            it('returns an array of one object for "3"',
-                function() {
-                    expect(cribbageCard.parseIndices(
-                        '3').length).toEqual(1);
-                });
-
-            it(
-                'returns an array of three objects for "5J9"',
-                function() {
-                    expect(cribbageCard.parseIndices(
-                        '5J9').length).toEqual(3);
-                });
-
-            it(
-                'returns an array with the expected ordinals for "KAKA"',
-                function() {
-                    expect(cribbageCard.parseIndices(
-                        'KAKA').map(
-                        function(card) {
-                            return card.ordinal;
-                        })).toEqual([13, 1, 13, 1]);
-                });
-
-            it('returns the empty array for "', function() {
-                expect(cribbageCard.parseIndices(''))
-                    .toEqual([]);
+            it('return value for ""', function() {
+                expect(cribbageCard.parseIndices('').length).toEqual(0);
             });
 
-            it(
-                'returns ordinal=undefined for a space within the card indices string',
-                function() {
-                    expect(cribbageCard.parseIndices(
-                        'A2 45')[2].ordinal).not.toBeDefined();
-                });
+            it('return Array length for "3"', function() {
+                expect(cribbageCard.parseIndices('3').length).toEqual(1);
+            });
 
-            it(
-                'returns defined for a card index character after an invalid ' +
-                'character',
-                function() {
-                    expect(cribbageCard.parseIndices(
-                        'A2?45')[3]).toBeDefined();
-                });
+            it('return Array length for "5J9"', function() {
+                expect(cribbageCard.parseIndices('5J9').length).toEqual(3);
+            });
+
+            it('return value ordinals for "KAKA"', function() {
+                expect(
+                    cribbageCard.parseIndices('KAKA').map(function(card) {
+                        return card.ordinal;
+                    })
+                ).toEqual([13, 1, 13, 1]);
+            });
+
+            it('return array for ""', function() {
+                expect(cribbageCard.parseIndices('')).toEqual([]);
+            });
+
+            it('return array ordinal for " " index', function() {
+                expect(
+                    cribbageCard.parseIndices('A2 45')[2].ordinal
+                ).not.toBeDefined();
+            });
+
+            it('return value for index after invalid one', function() {
+                expect(cribbageCard.parseIndices('A2?45')[3]).toBeDefined();
+            });
         });
     });
-}());
+})();

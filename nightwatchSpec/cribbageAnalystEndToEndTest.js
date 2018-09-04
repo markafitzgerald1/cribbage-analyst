@@ -23,12 +23,19 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .waitForElementVisible(
+                    inputSelector,
+                    initialRenderTimeoutMilliseconds
+                )
                 .setValue(inputSelector, 'Q7742A')
-                .waitForElementPresent(firstAnalysisSelector,
-                    analysisTimeoutMilliseconds)
-                .assert.containsText(analysesSelector,
-                    'Keep Q77A, discard 42 = 4 points.')
+                .waitForElementPresent(
+                    firstAnalysisSelector,
+                    analysisTimeoutMilliseconds
+                )
+                .assert.containsText(
+                    analysesSelector,
+                    'Keep Q77A, discard 42 = 4 points.'
+                )
                 .end();
         },
 
@@ -37,12 +44,19 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .waitForElementVisible(
+                    inputSelector,
+                    initialRenderTimeoutMilliseconds
+                )
                 .setValue(inputSelector, 'A233XY')
-                .waitForElementPresent(firstAnalysisSelector,
-                    analysisTimeoutMilliseconds)
-                .assert.containsText(analysesSelector,
-                    'Keep A33X, discard 2Y = 2 points.')
+                .waitForElementPresent(
+                    firstAnalysisSelector,
+                    analysisTimeoutMilliseconds
+                )
+                .assert.containsText(
+                    analysesSelector,
+                    'Keep A33X, discard 2Y = 2 points.'
+                )
                 .end();
         },
 
@@ -51,12 +65,19 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .waitForElementVisible(
+                    inputSelector,
+                    initialRenderTimeoutMilliseconds
+                )
                 .setValue(inputSelector, 'Q77772')
-                .waitForElementPresent(firstAnalysisSelector,
-                    analysisTimeoutMilliseconds)
-                .assert.containsText(firstAnalysisSelector,
-                    'Keep 7777, discard Q2 = 12 points.')
+                .waitForElementPresent(
+                    firstAnalysisSelector,
+                    analysisTimeoutMilliseconds
+                )
+                .assert.containsText(
+                    firstAnalysisSelector,
+                    'Keep 7777, discard Q2 = 12 points.'
+                )
                 .end();
         },
 
@@ -65,12 +86,19 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .waitForElementVisible(
+                    inputSelector,
+                    initialRenderTimeoutMilliseconds
+                )
                 .setValue(inputSelector, 'K774')
-                .waitForElementPresent(firstAnalysisSelector,
-                    analysisTimeoutMilliseconds)
-                .assert.containsText(analysesSelector,
-                    'Keep K774, discard nothing = 2 points.')
+                .waitForElementPresent(
+                    firstAnalysisSelector,
+                    analysisTimeoutMilliseconds
+                )
+                .assert.containsText(
+                    analysesSelector,
+                    'Keep K774, discard nothing = 2 points.'
+                )
                 .end();
         },
 
@@ -79,12 +107,19 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .waitForElementVisible(
+                    inputSelector,
+                    initialRenderTimeoutMilliseconds
+                )
                 .setValue(inputSelector, 'A289TJ')
-                .waitForElementPresent(firstAnalysisSelector,
-                    analysisTimeoutMilliseconds)
-                .assert.containsText(analysesSelector,
-                    'Keep 89TJ, discard A2 = 4 points.')
+                .waitForElementPresent(
+                    firstAnalysisSelector,
+                    analysisTimeoutMilliseconds
+                )
+                .assert.containsText(
+                    analysesSelector,
+                    'Keep 89TJ, discard A2 = 4 points.'
+                )
                 .end();
         },
 
@@ -93,13 +128,20 @@
             // jscs:enable jsDoc
             browser
                 .url(siteUrl)
-                .waitForElementVisible(inputSelector, initialRenderTimeoutMilliseconds)
+                .waitForElementVisible(
+                    inputSelector,
+                    initialRenderTimeoutMilliseconds
+                )
                 .setValue(inputSelector, '8876KQ')
-                .waitForElementPresent(firstAnalysisSelector,
-                    analysisTimeoutMilliseconds)
-                .assert.containsText(analysesSelector,
-                    'Keep 8876, discard KQ = 12 points.')
+                .waitForElementPresent(
+                    firstAnalysisSelector,
+                    analysisTimeoutMilliseconds
+                )
+                .assert.containsText(
+                    analysesSelector,
+                    'Keep 8876, discard KQ = 12 points.'
+                )
                 .end();
         }
     };
-}());
+})();

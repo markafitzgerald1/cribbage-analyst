@@ -22,67 +22,66 @@
                     // jscs:enable jsDoc
                 }
             };
-            spyOn(spyParent,
-                'fakeCalculateExpectedHandPoints');
+            spyOn(spyParent, 'fakeCalculateExpectedHandPoints');
         });
 
-        it(
-            'hands empty discarded cards to calculateExpectedHandPoints',
-            function() {
-                var cards = cribbageCard.parseIndices('3456');
-                cribbageAnalysis.expectedHandPointsPerDiscardOption(
-                    lodash, jsCombinatorics, cards,
-                    spyParent.fakeCalculateExpectedHandPoints
-                );
-                expect(spyParent.fakeCalculateExpectedHandPoints)
-                    .toHaveBeenCalledWith(lodash,
-                        jsCombinatorics, cards, []);
-            });
+        it('hands empty discarded cards to calculateExpectedHandPoints', function() {
+            var cards = cribbageCard.parseIndices('3456');
+            cribbageAnalysis.expectedHandPointsPerDiscardOption(
+                lodash,
+                jsCombinatorics,
+                cards,
+                spyParent.fakeCalculateExpectedHandPoints
+            );
+            expect(
+                spyParent.fakeCalculateExpectedHandPoints
+            ).toHaveBeenCalledWith(lodash, jsCombinatorics, cards, []);
+        });
 
-        it(
-            'hands single discarded card to calculateExpectedHandPoints',
-            function() {
-                var cards = cribbageCard.parseIndices('A2345'),
-                    expectFakeCalculateExpectedHandPointsCall =
+        it('hands single discarded card to calculateExpectedHandPoints', function() {
+            var cards = cribbageCard.parseIndices('A2345'),
+                expectFakeCalculateExpectedHandPointsCall =
                     // jscs:disable jsDoc
-                    function(keptCardIndices,
-                        discardedCardIndices) {
+                    function(keptCardIndices, discardedCardIndices) {
                         // jscs:enable jsDoc
-                        expect(spyParent.fakeCalculateExpectedHandPoints)
-                            .toHaveBeenCalledWith(lodash,
-                                jsCombinatorics, cribbageCard.parseIndices(
-                                    keptCardIndices),
-                                cribbageCard.parseIndices(
-                                    discardedCardIndices));
+                        expect(
+                            spyParent.fakeCalculateExpectedHandPoints
+                        ).toHaveBeenCalledWith(
+                            lodash,
+                            jsCombinatorics,
+                            cribbageCard.parseIndices(keptCardIndices),
+                            cribbageCard.parseIndices(discardedCardIndices)
+                        );
                     };
-                cribbageAnalysis.expectedHandPointsPerDiscardOption(
-                    lodash, jsCombinatorics, cards,
-                    spyParent.fakeCalculateExpectedHandPoints
-                );
+            cribbageAnalysis.expectedHandPointsPerDiscardOption(
+                lodash,
+                jsCombinatorics,
+                cards,
+                spyParent.fakeCalculateExpectedHandPoints
+            );
 
-                expectFakeCalculateExpectedHandPointsCall(
-                    'A235', '4');
-                expectFakeCalculateExpectedHandPointsCall(
-                    'A245', '3');
-                expectFakeCalculateExpectedHandPointsCall(
-                    'A345', '2');
-                expectFakeCalculateExpectedHandPointsCall(
-                    '2345', 'A');
-            });
+            expectFakeCalculateExpectedHandPointsCall('A235', '4');
+            expectFakeCalculateExpectedHandPointsCall('A245', '3');
+            expectFakeCalculateExpectedHandPointsCall('A345', '2');
+            expectFakeCalculateExpectedHandPointsCall('2345', 'A');
+        });
 
-        it(
-            'hands two discarded cards to calculateExpectedHandPoints',
-            function() {
-                var cards = cribbageCard.parseIndices('A23456');
-                cribbageAnalysis.expectedHandPointsPerDiscardOption(
-                    lodash, jsCombinatorics, cards,
-                    spyParent.fakeCalculateExpectedHandPoints
-                );
-                expect(spyParent.fakeCalculateExpectedHandPoints)
-                    .toHaveBeenCalledWith(lodash,
-                        jsCombinatorics, cribbageCard.parseIndices(
-                            'A346'), cribbageCard.parseIndices(
-                            '25'));
-            });
+        it('hands two discarded cards to calculateExpectedHandPoints', function() {
+            var cards = cribbageCard.parseIndices('A23456');
+            cribbageAnalysis.expectedHandPointsPerDiscardOption(
+                lodash,
+                jsCombinatorics,
+                cards,
+                spyParent.fakeCalculateExpectedHandPoints
+            );
+            expect(
+                spyParent.fakeCalculateExpectedHandPoints
+            ).toHaveBeenCalledWith(
+                lodash,
+                jsCombinatorics,
+                cribbageCard.parseIndices('A346'),
+                cribbageCard.parseIndices('25')
+            );
+        });
     });
-}());
+})();

@@ -48,15 +48,14 @@
             return 0;
         }
 
-        return lodash.sum(jsCombinatorics.combination(cards, 2).map(
-            function(
-                pair) {
+        return lodash.sum(
+            jsCombinatorics.combination(cards, 2).map(function(pair) {
                 if (!pair[0].ordinal || !pair[1].ordinal) {
                     return 0;
                 }
-                return pair[0].ordinal === pair[1].ordinal ?
-                    pairPoints : 0;
-            }));
+                return pair[0].ordinal === pair[1].ordinal ? pairPoints : 0;
+            })
+        );
     };
 
     /**
@@ -78,12 +77,15 @@
      *     [{countingValue: 6}, {countingValue: 9}, {countingValue: 9}]);
      */
     exports.fifteensPoints = function(lodash, jsCombinatorics, cards) {
-        return lodash.sum(jsCombinatorics.power(cards).map(function(
-            cardsSubset) {
-            return lodash(cardsSubset).map('countingValue')
-                .sum() ===
-                fifteenCount ? fifteenPoints : 0;
-        }));
+        return lodash.sum(
+            jsCombinatorics.power(cards).map(function(cardsSubset) {
+                return lodash(cardsSubset)
+                    .map('countingValue')
+                    .sum() === fifteenCount
+                    ? fifteenPoints
+                    : 0;
+            })
+        );
     };
 
     /**
@@ -101,34 +103,47 @@
      * @returns {!number} runsPoints - number of points from runs in hand
      */
     exports.runsPoints = function(lodash, jsCombinatorics, cards) {
-        var individialRunsPoints = jsCombinatorics.power(cards).filter(
-                function(cardsSubset) {
+        var individialRunsPoints = jsCombinatorics
+                .power(cards)
+                .filter(function(cardsSubset) {
                     return cardsSubset.length >= minRunLength;
-                }).map(function(cardsSubset) {
-                return lodash(cardsSubset).map('ordinal').value();
-            }).map(function(cardOrdinalsSubset) {
-                return lodash(cardOrdinalsSubset).sortBy().value();
-            }).map(function(sortedCardOrdinalsSubset) {
-                return lodash.zipWith(sortedCardOrdinalsSubset.slice(
-                    0, -1), sortedCardOrdinalsSubset.slice(
-                    1), function(lowerOrdinal,
-                    higherOrdinal) {
-                    return higherOrdinal - lowerOrdinal;
-                });
-            }).filter(function(sortedCardOrdinalsSubsetDeltas) {
-                return sortedCardOrdinalsSubsetDeltas.every(
-                    function(delta) {
+                })
+                .map(function(cardsSubset) {
+                    return lodash(cardsSubset)
+                        .map('ordinal')
+                        .value();
+                })
+                .map(function(cardOrdinalsSubset) {
+                    return lodash(cardOrdinalsSubset)
+                        .sortBy()
+                        .value();
+                })
+                .map(function(sortedCardOrdinalsSubset) {
+                    return lodash.zipWith(
+                        sortedCardOrdinalsSubset.slice(0, -1),
+                        sortedCardOrdinalsSubset.slice(1),
+                        function(lowerOrdinal, higherOrdinal) {
+                            return higherOrdinal - lowerOrdinal;
+                        }
+                    );
+                })
+                .filter(function(sortedCardOrdinalsSubsetDeltas) {
+                    return sortedCardOrdinalsSubsetDeltas.every(function(
+                        delta
+                    ) {
                         return delta === 1;
                     });
-            }).map(function(sortedCardOrdinalsSubsetDeltas) {
-                return sortedCardOrdinalsSubsetDeltas.length + 1;
-            }),
+                })
+                .map(function(sortedCardOrdinalsSubsetDeltas) {
+                    return sortedCardOrdinalsSubsetDeltas.length + 1;
+                }),
             longestRunPoints = lodash.max(individialRunsPoints);
 
-        return lodash(individialRunsPoints).filter(function(
-            individialRunPoints) {
-            return individialRunPoints === longestRunPoints;
-        }).sum();
+        return lodash(individialRunsPoints)
+            .filter(function(individialRunPoints) {
+                return individialRunPoints === longestRunPoints;
+            })
+            .sum();
     };
 
     /**
@@ -151,10 +166,15 @@
      * cribbageScoring.pairsFifteensAndRunsPoints(
      *     [{ordinal: 6}, {ordinal: 5}, {ordinal: 4}, {ordinal: 4}]);
      */
-    exports.pairsFifteensAndRunsPoints = function(lodash, jsCombinatorics,
-        cards) {
-        return exports.pairsPoints(lodash, jsCombinatorics, cards) +
+    exports.pairsFifteensAndRunsPoints = function(
+        lodash,
+        jsCombinatorics,
+        cards
+    ) {
+        return (
+            exports.pairsPoints(lodash, jsCombinatorics, cards) +
             exports.fifteensPoints(lodash, jsCombinatorics, cards) +
-            exports.runsPoints(lodash, jsCombinatorics, cards);
+            exports.runsPoints(lodash, jsCombinatorics, cards)
+        );
     };
-}());
+})();
