@@ -11,9 +11,9 @@ addons:
   chrome: stable
 sudo: required
 before_script:
-  - node_modules/gulp/bin/gulp.js startServer &
+  - node_modules/.bin/gulp startServer &
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
-script: node_modules/gulp/bin/gulp.js
+script: node_modules/.bin/gulp
 deploy:
   provider: pages
   skip-cleanup: true
