@@ -12,10 +12,10 @@
      * @module cribbageAnalyst
      */
 
-    var cribbageAnalysis = require('../src/cribbageAnalysis.js'),
+    var cribbageAnalysis = require('./cribbageAnalysis.js'),
         jsCombinatorics = require('js-combinatorics'),
-        cribbageScoring = require('../src/cribbageScoring.js'),
-        cribbageCard = require('../src/cribbageCard'),
+        cribbageScoring = require('./cribbageScoring.js'),
+        cribbageCard = require('./cribbageCard'),
         lodash = require('lodash'),
         Vue = require('vue');
 
