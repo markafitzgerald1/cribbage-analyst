@@ -15,7 +15,9 @@
         "test": "jasmine spec/*.*Spec.js",
         "jsdoc": "node scripts/jsdoc.js",
         "build": "npm-run-all --parallel --aggregate-output analyze-* test jsdoc",
-        "webpack": "webpack src/cribbageAnalyst.js --mode=development --output dist/cribbageAnalyst.bundle.js --output-library cribbageAnalyst"
+        "webpack": "webpack src/cribbageAnalyst.js --mode=development --output dist/cribbageAnalyst.bundle.js --output-library cribbageAnalyst",
+        "copy": "copyfiles index.* dist",
+        "dist": "npm run build && npm-run-all webpack copy"
     },
     "keywords": [
         "cribbage",
@@ -34,6 +36,7 @@
     "homepage": "https://github.com/markafitzgerald1/cribbage-analyst#readme",
     "devDependencies": {
         "chromedriver": "^2.40.0",
+        "copyfiles": "^2.1.0",
         "del": "^2.2.0",
         "edgedriver": "^4.17134.0",
         "geckodriver": "^1.11.0",
