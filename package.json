@@ -13,6 +13,7 @@
         "test-unit": "jasmine spec/*.unitSpec.js",
         "test-integration": "jasmine spec/*.integrationSpec.js",
         "test": "jasmine spec/*.*Spec.js",
+        "clean": "rimraf docs dist",
         "jsdoc": "node scripts/jsdoc.js",
         "build": "npm-run-all --parallel --aggregate-output analyze-* test jsdoc",
         "webpack": "webpack src/cribbageAnalyst.js --mode=development --output dist/cribbageAnalyst.bundle.js --output-library cribbageAnalyst",
