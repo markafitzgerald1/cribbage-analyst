@@ -18,7 +18,8 @@
         "build": "npm-run-all --parallel --aggregate-output analyze-* test jsdoc",
         "webpack": "webpack src/cribbageAnalyst.js --mode=development --output dist/cribbageAnalyst.bundle.js --output-library cribbageAnalyst",
         "copy": "copyfiles index.* dist",
-        "dist": "npm run build && npm-run-all webpack copy"
+        "dist": "npm run build && npm-run-all webpack copy",
+        "start": "http-server dist"
     },
     "keywords": [
         "cribbage",
@@ -51,6 +52,7 @@
         "gulp-jshint": "^2.0.0",
         "gulp-nightwatch": "^0.3.3",
         "gulp-util": "^3.0.7",
+        "http-server": "^0.11.1",
         "jasmine": "^3.2.0",
         "js-combinatorics": "^0.5.0",
         "jsdoc": "^3.5.5",
